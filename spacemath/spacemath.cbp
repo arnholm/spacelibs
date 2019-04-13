@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="spacemath" />
+		<Option pch_mode="2" />
+		<Option compiler="msvc" />
+		<Build>
+			<Target title="MSVC_Debug">
+				<Option output=".cmp/msvc/bin/Debug/spacemathd" prefix_auto="0" extension_auto="1" />
+				<Option object_output=".cmp/msvc/obj/Debug/" />
+				<Option type="3" />
+				<Option compiler="msvc" />
+				<Option createDefFile="1" />
+				<Option createStaticLib="1" />
+				<Compiler>
+					<Add option="/MDd" />
+					<Add option="/Od" />
+					<Add option="/RTCsu" />
+					<Add option="/Fd$(TARGET_OUTPUT_DIR)$(TARGET_OUTPUT_BASENAME).pdb" />
+					<Add option="/GF" />
+					<Add option="/EHsc" />
+					<Add option="/W3" />
+					<Add option="`$(CPDE_USR)\bin\wx-config.exe --prefix=$(#wx) --wxcfg=$(#wx.debug) --iso --cxxflags`" />
+					<Add option="/D_CRT_SECURE_NO_WARNINGS" />
+					<Add option="/D_CRT_NONSTDC_NO_DEPRECATE" />
+					<Add option="/D_CRT_SECURE_DEPRECATE" />
+					<Add directory="./" />
+				</Compiler>
+				<Linker>
+					<Add option="`$(CPDE_USR)\bin\wx-config.exe  --prefix=$(#wx) --wxcfg=$(#wx.debug) --iso --libs`" />
+					<Add option="/NODEFAULTLIB:libcmt.lib" />
+					<Add option="/NODEFAULTLIB:msvcrt.lib" />
+					<Add option="/INCREMENTAL:NO" />
+					<Add library="msvcrtd.lib" />
+				</Linker>
+				<ExtraCommands>
+					<Add after="$(CPDE_USR)/bin/cpde_usr -dll -project=$(PROJECT_NAME)  -root=$(PROJECT_DIR)  -build=$(TARGET_NAME)  -target=$(TARGET_OUTPUT_FILE)  -usr=$(CPDE_USR)" />
+					<Mode after="always" />
+				</ExtraCommands>
+			</Target>
+			<Target title="MSVC_Release">
+				<Option output=".cmp/msvc/bin/Release/spacemath" prefix_auto="0" extension_auto="1" />
+				<Option object_output=".cmp/msvc/obj/Release/" />
+				<Option type="3" />
+				<Option compiler="msvc" />
+				<Option createDefFile="1" />
+				<Option createStaticLib="1" />
+				<Compiler>
+					<Add option="/MD" />
+					<Add option="/Ox" />
+					<Add option="/GF" />
+					<Add option="/EHsc" />
+					<Add option="/W3" />
+					<Add option="`$(CPDE_USR)\bin\wx-config.exe --prefix=$(#wx) --wxcfg=$(#wx.release) --iso --cxxflags`" />
+					<Add option="/D_CRT_SECURE_NO_WARNINGS" />
+					<Add option="/D_CRT_NONSTDC_NO_DEPRECATE" />
+					<Add option="/D_CRT_SECURE_DEPRECATE" />
+					<Add directory="./" />
+				</Compiler>
+				<Linker>
+					<Add option="`$(CPDE_USR)\bin\wx-config.exe  --prefix=$(#wx) --wxcfg=$(#wx.release) --iso --libs`" />
+					<Add option="/NODEFAULTLIB:libcmtd.lib" />
+					<Add option="/NODEFAULTLIB:msvcrtd.lib" />
+					<Add option="/INCREMENTAL:NO" />
+					<Add library="msvcrt.lib" />
+				</Linker>
+				<ExtraCommands>
+					<Add after="$(CPDE_USR)/bin/cpde_usr -dll -project=$(PROJECT_NAME)  -root=$(PROJECT_DIR)  -build=$(TARGET_NAME)  -target=$(TARGET_OUTPUT_FILE)  -usr=$(CPDE_USR)" />
+					<Mode after="always" />
+				</ExtraCommands>
+			</Target>
+			<Target title="GCC_Debug">
+				<Option output=".cmp/gcc/bin/Debug/spacemathd" prefix_auto="1" extension_auto="1" />
+				<Option object_output=".cmp/gcc/obj/Debug/" />
+				<Option type="3" />
+				<Option compiler="gcc" />
+				<Option createDefFile="1" />
+				<Option createStaticLib="1" />
+				<Compiler>
+					<Add option="-std=c++0x" />
+					<Add option="-W" />
+					<Add option="-fPIC" />
+					<Add option="-DNOPCH" />
+					<Add option="-fexceptions" />
+					<Add option="-D_DEBUG" />
+					<Add option="-g" />
+					<Add directory="./" />
+				</Compiler>
+				<ExtraCommands>
+					<Add after="$(CPDE_USR)/bin/cpde_usr -dll -project=$(PROJECT_NAME)  -root=$(PROJECT_DIR)  -build=$(TARGET_NAME)  -target=$(TARGET_OUTPUT_FILE)  -usr=$(CPDE_USR)" />
+					<Mode after="always" />
+				</ExtraCommands>
+			</Target>
+			<Target title="GCC_Release">
+				<Option output=".cmp/gcc/bin/Release/spacemath" prefix_auto="1" extension_auto="1" />
+				<Option object_output=".cmp/gcc/obj/Release/" />
+				<Option type="3" />
+				<Option compiler="gcc" />
+				<Option createDefFile="1" />
+				<Option createStaticLib="1" />
+				<Compiler>
+					<Add option="-Os" />
+					<Add option="-std=c++0x" />
+					<Add option="-W" />
+					<Add option="-fPIC" />
+					<Add option="-fexceptions" />
+					<Add option="-DNOPCH" />
+					<Add directory="./" />
+				</Compiler>
+				<ExtraCommands>
+					<Add before="rm -f $(TARGET_OUTPUT_FILE)" />
+					<Add after="$(CPDE_USR)/bin/cpde_usr -dll -project=$(PROJECT_NAME)  -root=$(PROJECT_DIR)  -build=$(TARGET_NAME)  -target=$(TARGET_OUTPUT_FILE)  -usr=$(CPDE_USR)" />
+				</ExtraCommands>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-DSPACEMATH_IMPLEMENTATION" />
+			<Add directory="$(CPDE_USR)/include" />
+			<Add directory="$(#boost.include)" />
+		</Compiler>
+		<Linker>
+			<Add directory="$(CPDE_USR)/lib" />
+			<Add directory="$(#boost.lib)" />
+		</Linker>
+		<Unit filename="HTmatrix.cpp" />
+		<Unit filename="HTmatrix.h" />
+		<Unit filename="ap/ap.cpp" />
+		<Unit filename="ap/ap.h" />
+		<Unit filename="ap/apvt.h" />
+		<Unit filename="ap/spline3.cpp" />
+		<Unit filename="ap/spline3.h" />
+		<Unit filename="bbox3d.cpp" />
+		<Unit filename="bbox3d.h" />
+		<Unit filename="circle2d.cpp" />
+		<Unit filename="circle2d.h" />
+		<Unit filename="line2d.cpp" />
+		<Unit filename="line2d.h" />
+		<Unit filename="line3d.cpp" />
+		<Unit filename="line3d.h" />
+		<Unit filename="locsys3d.cpp" />
+		<Unit filename="locsys3d.h" />
+		<Unit filename="plane3d.cpp" />
+		<Unit filename="plane3d.h" />
+		<Unit filename="polygon2d.cpp" />
+		<Unit filename="polygon2d.h" />
+		<Unit filename="polygon3d.cpp" />
+		<Unit filename="polygon3d.h" />
+		<Unit filename="polyhedron3d.cpp" />
+		<Unit filename="polyhedron3d.h" />
+		<Unit filename="pos2d.cpp" />
+		<Unit filename="pos2d.h" />
+		<Unit filename="pos3d.cpp" />
+		<Unit filename="pos3d.h" />
+		<Unit filename="spacemath_config.h" />
+		<Unit filename="spline2d.cpp" />
+		<Unit filename="spline2d.h" />
+		<Unit filename="spline3d.cpp" />
+		<Unit filename="spline3d.h" />
+		<Unit filename="vec2d.cpp" />
+		<Unit filename="vec2d.h" />
+		<Unit filename="vec3d.cpp" />
+		<Unit filename="vec3d.h" />
+		<Unit filename="vmath/vector_math.h" />
+		<Extensions>
+			<code_completion />
+			<envvars />
+			<lib_finder disable_auto="1" />
+			<debugger />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

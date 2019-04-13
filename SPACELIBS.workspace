@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_workspace_file>
+	<Workspace title="SPACELIBS">
+		<Project filename="spacemath/spacemath.cbp" />
+		<Project filename="spaceio/spaceio.cbp">
+			<Depends filename="spacemath/spacemath.cbp" />
+		</Project>
+		<Project filename="BUILD_ALL/BUILD_ALL.cbp">
+			<Depends filename="spacemath/spacemath.cbp" />
+			<Depends filename="spaceio/spaceio.cbp" />
+		</Project>
+	</Workspace>
+</CodeBlocks_workspace_file>
