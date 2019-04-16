@@ -1,5 +1,5 @@
 // BeginLicense:
-// Part of: spacelibs - reusable libraries for 3d space calculations 
+// Part of: spacelibs - reusable libraries for 3d space calculations
 // Copyright (C) 2017 Carsten Arnholm
 // All rights reserved
 //
@@ -12,7 +12,7 @@
 // INCLUDING THE WARRANTIES OF DESIGN, MERCHANTABILITY AND FITNESS FOR
 // A PARTICULAR PURPOSE.
 // EndLicense:
-   
+
 #include "bbox3d.h"
 #include <algorithm>
 #include <utility>
@@ -283,25 +283,14 @@ namespace spacemath {
       return (m_p2.z() - m_p1.z());
    }
 
+   double bbox3d::diagonal() const
+   {
+      return m_p1.dist(m_p2);
+   }
+
    bbox3d operator*(const HTmatrix& T, const bbox3d& b)
    {
-       pos3d p1 = b.p1();
-       pos3d p2 = b.p2();
-
-       double x[] = { p1.x(), p2.x() };
-       double y[] = { p1.y(), p2.y() };
-       double z[] = { p1.z(), p2.z() };
-
-       bbox3d box;
-       for(size_t iz=0; iz<2; iz++) {
-          for(size_t iy=0; iy<2; iy++) {
-             for(size_t ix=0; ix<2; ix++) {
-                box.enclose(T*pos3d(x[ix],y[iy],z[iz]));
-             }
-          }
-       }
-
-       return box;
+      return bbox3d(T*b.p1(),T*b.p2());
    }
 
 

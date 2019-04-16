@@ -49,6 +49,9 @@ namespace spacemath {
       // return extent in z
       double dz() const;
 
+      // return diagonal distance, i.e. distance between p1 and p2
+      double diagonal() const;
+
       // returns true if p is enclosed in bounding box
       bool  is_enclosed( const pos3d& p) const;
 
