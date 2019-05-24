@@ -78,27 +78,51 @@ namespace spaceio {
       if(off.is_open()) {
 
          std::string line;
-         std::getline(off,line);
-         if(line.substr(0,3) != "OFF") throw std::logic_error("Keyword 'OFF' not found in :" + file_path);
+         std::vector<std::string> tokens;
+         while(tokens.size()==0) {
+            std::getline(off,line);
+            tokenize(line," ",tokens);
+         }
+
+         // here we might see one of 2 variants
+         //
+         // a) one line
+         //    OFF numVertices numFaces numEdges
+         //
+         // b) two lines
+         //    OFF
+         //    numVertices numFaces numEdges
+
+         if(tokens[0].substr(0,3) != "OFF") throw std::logic_error("Keyword 'OFF' not found in :" + file_path);
 
          size_t nvert=0,nface=0;
-         while(std::getline(off,line)) {
+         if(tokens.size() >=3) {
+            // case a
+            std::string offtxt;
+            std::istringstream in(line);
+            in >> offtxt >> nvert >> nface;
+         }
+         else {
 
-            // check for non-blank line
-            std::vector<std::string> tokens;
-            tokenize(line," ",tokens);
-            if(tokens.size() > 0) {
+            // case b
+            while(std::getline(off,line)) {
 
-               // ok, at least one token
-               if(tokens[0][0] != '#') {
+               // check for non-blank line
+               std::vector<std::string> tokens;
+               tokenize(line," ",tokens);
+               if(tokens.size() > 0) {
 
-                  // We must first read number of vertices and faces
-                  if(nvert==0) {
-                     std::istringstream in(line);
-                     in >> nvert >> nface;
-                     vert.reserve(nvert);
-                     faces.reserve(nface);
-                     break;
+                  // ok, at least one token
+                  if(tokens[0][0] != '#') {
+
+                     // We must first read number of vertices and faces
+                     if(nvert==0) {
+                        std::istringstream in(line);
+                        in >> nvert >> nface;
+                        vert.reserve(nvert);
+                        faces.reserve(nface);
+                        break;
+                     }
                   }
                }
             }
