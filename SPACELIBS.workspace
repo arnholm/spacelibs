@@ -5,9 +5,13 @@
 		<Project filename="spaceio/spaceio.cbp">
 			<Depends filename="spacemath/spacemath.cbp" />
 		</Project>
+		<Project filename="polyhealer/polyhealer.cbp">
+			<Depends filename="spacemath/spacemath.cbp" />
+		</Project>
 		<Project filename="BUILD_ALL/BUILD_ALL.cbp">
 			<Depends filename="spacemath/spacemath.cbp" />
 			<Depends filename="spaceio/spaceio.cbp" />
+			<Depends filename="polyhealer/polyhealer.cbp" />
 		</Project>
 	</Workspace>
 </CodeBlocks_workspace_file>
