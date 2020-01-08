@@ -1,5 +1,5 @@
 // BeginLicense:
-// Part of: spacelibs - reusable libraries for 3d space calculations 
+// Part of: spacelibs - reusable libraries for 3d space calculations
 // Copyright (C) 2017 Carsten Arnholm
 // All rights reserved
 //
@@ -12,10 +12,11 @@
 // INCLUDING THE WARRANTIES OF DESIGN, MERCHANTABILITY AND FITNESS FOR
 // A PARTICULAR PURPOSE.
 // EndLicense:
-   
+
 #include "polyhedron3d.h"
 #include <algorithm>    // std::reverse
 #include <string> // std::to_string
+#include <stdexcept>
 #include "vmath/vector_math.h"
 
 namespace spacemath {

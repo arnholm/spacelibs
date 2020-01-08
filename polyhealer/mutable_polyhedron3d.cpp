@@ -14,6 +14,7 @@
 // EndLicense:
 #include "mutable_polyhedron3d.h"
 #include "spacemath/line3d.h"
+#include <stdexcept>
 
 mutable_polyhedron3d::mutable_polyhedron3d(const std::shared_ptr<polyhedron3d> poly)
 : m_poly(poly)

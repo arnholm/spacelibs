@@ -21,6 +21,7 @@
 #include <set>
 #include <limits>
 #include <cmath>
+#include <stdexcept>
 
 polyflip::polyflip(const std::shared_ptr<polyhedron3d> poly, double dtol)
 : m_poly(poly)
