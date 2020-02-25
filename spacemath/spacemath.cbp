@@ -74,7 +74,7 @@
 				<Option output=".cmp/gcc/bin/Debug/spacemathd" prefix_auto="1" extension_auto="1" />
 				<Option object_output=".cmp/gcc/obj/Debug/" />
 				<Option type="3" />
-				<Option compiler="gcc" />
+				<Option compiler="gcc_generic" />
 				<Option createDefFile="1" />
 				<Option createStaticLib="1" />
 				<Compiler>
@@ -96,7 +96,7 @@
 				<Option output=".cmp/gcc/bin/Release/spacemath" prefix_auto="1" extension_auto="1" />
 				<Option object_output=".cmp/gcc/obj/Release/" />
 				<Option type="3" />
-				<Option compiler="gcc" />
+				<Option compiler="gcc_generic" />
 				<Option createDefFile="1" />
 				<Option createStaticLib="1" />
 				<Compiler>
