@@ -192,7 +192,7 @@ namespace spaceio {
       // ========= vertices =================
       for(size_t ivert=0; ivert<poly->vertex_size(); ivert++) {
          const pos3d& v = poly->vertex(ivert);
-         out << std::setprecision(12) << v.x() << ' ' << std::setprecision(12) << v.y() << ' ' << std::setprecision(12) <<  v.z() << std::endl;
+         out << std::setprecision(16) << v.x() << ' ' << std::setprecision(16) << v.y() << ' ' << std::setprecision(16) <<  v.z() << std::endl;
       }
 
       // ========= faces =================

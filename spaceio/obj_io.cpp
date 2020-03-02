@@ -1,5 +1,5 @@
 // BeginLicense:
-// Part of: spacelibs - reusable libraries for 3d space calculations 
+// Part of: spacelibs - reusable libraries for 3d space calculations
 // Copyright (C) 2017 Carsten Arnholm
 // All rights reserved
 //
@@ -12,7 +12,7 @@
 // INCLUDING THE WARRANTIES OF DESIGN, MERCHANTABILITY AND FITNESS FOR
 // A PARTICULAR PURPOSE.
 // EndLicense:
-   
+
 #include "obj_io.h"
 #include <boost/filesystem.hpp>
 #include <boost/lexical_cast.hpp>
@@ -149,7 +149,7 @@ namespace spaceio {
       // ========= vertices =================
       for(size_t ivert=0; ivert<poly->vertex_size(); ivert++) {
          const pos3d& v = poly->vertex(ivert);
-         out << "v " << std::setprecision(12) << v.x() << ' ' << std::setprecision(12) << v.y() << ' ' << std::setprecision(12) <<  v.z() << std::endl;
+         out << "v " << std::setprecision(16) << v.x() << ' ' << std::setprecision(16) << v.y() << ' ' << std::setprecision(16) <<  v.z() << std::endl;
       }
 
       // ========= faces =================
