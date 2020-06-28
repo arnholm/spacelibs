@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="dxfdom" />
+		<Option pch_mode="2" />
+		<Option compiler="msvc" />
+		<Option virtualFolders="DXF_TOPOLOGY/;DXF_ENTITIES/;DXF_ABSTRACT/;DXF_ENTITIES/special/;DXF_BLOCKS/;EXPORT/" />
+		<Build>
+			<Target title="MSVC_Debug">
+				<Option output=".cmp/msvc/bin/Debug/dxfdomd" prefix_auto="0" extension_auto="1" />
+				<Option object_output=".cmp/msvc/obj/Debug/" />
+				<Option type="3" />
+				<Option compiler="msvc" />
+				<Option createDefFile="1" />
+				<Option createStaticLib="1" />
+				<Compiler>
+					<Add option="/MDd" />
+					<Add option="/GF" />
+					<Add option="/Od" />
+					<Add option="/W3" />
+					<Add option="/RTCsu" />
+					<Add option="/Fd$(TARGET_OUTPUT_DIR)$(TARGET_OUTPUT_BASENAME).pdb" />
+					<Add option="/EHsc" />
+					<Add option="`$(CPDE_USR)\bin\wx-config.exe --prefix=$(#wx) --wxcfg=$(#wx.debug) --iso --cxxflags`" />
+					<Add option="/D_CRT_SECURE_NO_WARNINGS" />
+					<Add option="/D_CRT_NONSTDC_NO_DEPRECATE" />
+					<Add option="/D_CRT_SECURE_DEPRECATE" />
+					<Add directory="./" />
+				</Compiler>
+				<Linker>
+					<Add option="`$(CPDE_USR)\bin\wx-config.exe  --prefix=$(#wx) --wxcfg=$(#wx.debug) --iso --libs`" />
+					<Add option="/NODEFAULTLIB:libcmt.lib" />
+					<Add option="/NODEFAULTLIB:msvcrt.lib" />
+					<Add option="/INCREMENTAL:NO" />
+					<Add library="msvcrtd.lib" />
+					<Add library="spaceiod" />
+				</Linker>
+				<ExtraCommands>
+					<Add after="$(CPDE_USR)/bin/cpde_usr -dll -project=$(PROJECT_NAME)  -root=$(PROJECT_DIR)  -build=$(TARGET_NAME)  -target=$(TARGET_OUTPUT_FILE)  -usr=$(CPDE_USR)" />
+					<Mode after="always" />
+				</ExtraCommands>
+			</Target>
+			<Target title="MSVC_Release">
+				<Option output=".cmp/msvc/bin/Release/dxfdom" prefix_auto="0" extension_auto="1" />
+				<Option object_output=".cmp/msvc/obj/Release/" />
+				<Option type="3" />
+				<Option compiler="msvc" />
+				<Option createDefFile="1" />
+				<Option createStaticLib="1" />
+				<Compiler>
+					<Add option="/MD" />
+					<Add option="/GF" />
+					<Add option="/Ox" />
+					<Add option="/W3" />
+					<Add option="/EHsc" />
+					<Add option="`$(CPDE_USR)\bin\wx-config.exe --prefix=$(#wx) --wxcfg=$(#wx.release) --iso --cxxflags`" />
+					<Add option="/D_CRT_SECURE_NO_WARNINGS" />
+					<Add option="/D_CRT_NONSTDC_NO_DEPRECATE" />
+					<Add option="/D_CRT_SECURE_DEPRECATE" />
+					<Add directory="./" />
+				</Compiler>
+				<Linker>
+					<Add option="`$(CPDE_USR)\bin\wx-config.exe  --prefix=$(#wx) --wxcfg=$(#wx.release) --iso --libs`" />
+					<Add option="/NODEFAULTLIB:libcmtd.lib" />
+					<Add option="/NODEFAULTLIB:msvcrtd.lib" />
+					<Add option="/INCREMENTAL:NO" />
+					<Add library="msvcrt.lib" />
+					<Add library="spaceio" />
+				</Linker>
+				<ExtraCommands>
+					<Add after="$(CPDE_USR)/bin/cpde_usr -dll -project=$(PROJECT_NAME)  -root=$(PROJECT_DIR)  -build=$(TARGET_NAME)  -target=$(TARGET_OUTPUT_FILE)  -usr=$(CPDE_USR)" />
+					<Mode after="always" />
+				</ExtraCommands>
+			</Target>
+			<Target title="GCC_Debug">
+				<Option output=".cmp/gcc/bin/Debug/dxfdomd" prefix_auto="1" extension_auto="1" />
+				<Option object_output=".cmp/gcc/obj/Debug/" />
+				<Option type="3" />
+				<Option compiler="gcc" />
+				<Option parameters="/work/DATA/openscad_testdata/dxf/Design34.dxf" />
+				<Option host_application="/work/cpde_git/proto/dxfread/.cmp/gcc/bin/Debug/dxfreadd" />
+				<Option run_host_application_in_terminal="0" />
+				<Compiler>
+					<Add option="-std=c++0x" />
+					<Add option="-W" />
+					<Add option="-fPIC" />
+					<Add option="-fexceptions" />
+					<Add option="-g" />
+					<Add option="-DNOPCH" />
+					<Add option="-D_DEBUG" />
+					<Add directory="./" />
+				</Compiler>
+				<Linker>
+					<Add library="boost_system" />
+					<Add library="boost_filesystem" />
+				</Linker>
+				<ExtraCommands>
+					<Add after="$(CPDE_USR)/bin/cpde_usr -dll -project=$(PROJECT_NAME)  -root=$(PROJECT_DIR)  -build=$(TARGET_NAME)  -target=$(TARGET_OUTPUT_FILE)  -usr=$(CPDE_USR)" />
+					<Mode after="always" />
+				</ExtraCommands>
+			</Target>
+			<Target title="GCC_Release">
+				<Option output=".cmp/gcc/bin/Release/dxfdom" prefix_auto="1" extension_auto="1" />
+				<Option object_output=".cmp/gcc/obj/Release/" />
+				<Option type="3" />
+				<Option compiler="gcc" />
+				<Option createDefFile="1" />
+				<Option createStaticLib="1" />
+				<Compiler>
+					<Add option="-std=c++0x" />
+					<Add option="-W" />
+					<Add option="-fPIC" />
+					<Add option="-fexceptions" />
+					<Add option="-Os" />
+					<Add option="-DNOPCH" />
+					<Add option="-DBOOST_ERROR_CODE_HEADER_ONLY" />
+					<Add option="-DBOOST_SYSTEM_NO_DEPRECATED" />
+					<Add directory="./" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+					<Add library="boost_system" />
+					<Add library="boost_filesystem" />
+				</Linker>
+				<ExtraCommands>
+					<Add before="rm -f $(TARGET_OUTPUT_FILE)" />
+					<Add after="$(CPDE_USR)/bin/cpde_usr -dll -project=$(PROJECT_NAME)  -root=$(PROJECT_DIR)  -build=$(TARGET_NAME)  -target=$(TARGET_OUTPUT_FILE)  -usr=$(CPDE_USR)" />
+				</ExtraCommands>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-DDXFDOM_IMPLEMENTATION" />
+			<Add directory="$(CPDE_USR)/include" />
+			<Add directory="$(#boost.include)" />
+		</Compiler>
+		<Linker>
+			<Add directory="$(CPDE_USR)/lib" />
+			<Add directory="$(#boost.lib)" />
+		</Linker>
+		<Unit filename="clipper_csg/clipper.cpp" />
+		<Unit filename="clipper_csg/clipper.hpp" />
+		<Unit filename="dxfarc.cpp">
+			<Option virtualFolder="DXF_ENTITIES/" />
+		</Unit>
+		<Unit filename="dxfarc.h">
+			<Option virtualFolder="DXF_ENTITIES/" />
+		</Unit>
+		<Unit filename="dxfblock.cpp">
+			<Option virtualFolder="DXF_BLOCKS/" />
+		</Unit>
+		<Unit filename="dxfblock.h">
+			<Option virtualFolder="DXF_BLOCKS/" />
+		</Unit>
+		<Unit filename="dxfcircle.cpp">
+			<Option virtualFolder="DXF_ENTITIES/" />
+		</Unit>
+		<Unit filename="dxfcircle.h">
+			<Option virtualFolder="DXF_ENTITIES/" />
+		</Unit>
+		<Unit filename="dxfcurve.cpp">
+			<Option virtualFolder="DXF_TOPOLOGY/" />
+		</Unit>
+		<Unit filename="dxfcurve.h">
+			<Option virtualFolder="DXF_TOPOLOGY/" />
+		</Unit>
+		<Unit filename="dxfdom_config.h" />
+		<Unit filename="dxfdummyentity.cpp">
+			<Option virtualFolder="DXF_ENTITIES/special/" />
+		</Unit>
+		<Unit filename="dxfdummyentity.h">
+			<Option virtualFolder="DXF_ENTITIES/special/" />
+		</Unit>
+		<Unit filename="dxfellipse.cpp">
+			<Option virtualFolder="DXF_ENTITIES/" />
+		</Unit>
+		<Unit filename="dxfellipse.h">
+			<Option virtualFolder="DXF_ENTITIES/" />
+		</Unit>
+		<Unit filename="dxfentity.cpp">
+			<Option virtualFolder="DXF_ABSTRACT/" />
+		</Unit>
+		<Unit filename="dxfentity.h">
+			<Option virtualFolder="DXF_ABSTRACT/" />
+		</Unit>
+		<Unit filename="dxfentitycontainer.cpp">
+			<Option virtualFolder="DXF_ENTITIES/special/" />
+		</Unit>
+		<Unit filename="dxfentitycontainer.h">
+			<Option virtualFolder="DXF_ENTITIES/special/" />
+		</Unit>
+		<Unit filename="dxfentitygeneric.cpp">
+			<Option virtualFolder="DXF_ENTITIES/special/" />
+		</Unit>
+		<Unit filename="dxfentitygeneric.h">
+			<Option virtualFolder="DXF_ENTITIES/special/" />
+		</Unit>
+		<Unit filename="dxffontexport.cpp">
+			<Option virtualFolder="EXPORT/" />
+		</Unit>
+		<Unit filename="dxffontexport.h">
+			<Option virtualFolder="EXPORT/" />
+		</Unit>
+		<Unit filename="dxfinsert.cpp">
+			<Option virtualFolder="DXF_ENTITIES/" />
+		</Unit>
+		<Unit filename="dxfinsert.h">
+			<Option virtualFolder="DXF_ENTITIES/" />
+		</Unit>
+		<Unit filename="dxfitem.cpp">
+			<Option virtualFolder="DXF_ABSTRACT/" />
+		</Unit>
+		<Unit filename="dxfitem.h">
+			<Option virtualFolder="DXF_ABSTRACT/" />
+		</Unit>
+		<Unit filename="dxfline.cpp">
+			<Option virtualFolder="DXF_ENTITIES/" />
+		</Unit>
+		<Unit filename="dxfline.h">
+			<Option virtualFolder="DXF_ENTITIES/" />
+		</Unit>
+		<Unit filename="dxfloop.cpp">
+			<Option virtualFolder="DXF_TOPOLOGY/" />
+		</Unit>
+		<Unit filename="dxfloop.h">
+			<Option virtualFolder="DXF_TOPOLOGY/" />
+		</Unit>
+		<Unit filename="dxflwpolyline.cpp">
+			<Option virtualFolder="DXF_ENTITIES/" />
+		</Unit>
+		<Unit filename="dxflwpolyline.h">
+			<Option virtualFolder="DXF_ENTITIES/" />
+		</Unit>
+		<Unit filename="dxfnode.cpp">
+			<Option virtualFolder="DXF_TOPOLOGY/" />
+		</Unit>
+		<Unit filename="dxfnode.h">
+			<Option virtualFolder="DXF_TOPOLOGY/" />
+		</Unit>
+		<Unit filename="dxfobject.cpp">
+			<Option virtualFolder="DXF_ABSTRACT/" />
+		</Unit>
+		<Unit filename="dxfobject.h">
+			<Option virtualFolder="DXF_ABSTRACT/" />
+		</Unit>
+		<Unit filename="dxfpoint.cpp">
+			<Option virtualFolder="DXF_ENTITIES/" />
+		</Unit>
+		<Unit filename="dxfpoint.h">
+			<Option virtualFolder="DXF_ENTITIES/" />
+		</Unit>
+		<Unit filename="dxfpolyline.cpp">
+			<Option virtualFolder="DXF_ENTITIES/" />
+		</Unit>
+		<Unit filename="dxfpolyline.h">
+			<Option virtualFolder="DXF_ENTITIES/" />
+		</Unit>
+		<Unit filename="dxfpos.cpp">
+			<Option virtualFolder="DXF_ABSTRACT/" />
+		</Unit>
+		<Unit filename="dxfpos.h">
+			<Option virtualFolder="DXF_ABSTRACT/" />
+		</Unit>
+		<Unit filename="dxfposmap.cpp">
+			<Option virtualFolder="DXF_TOPOLOGY/" />
+		</Unit>
+		<Unit filename="dxfposmap.h">
+			<Option virtualFolder="DXF_TOPOLOGY/" />
+		</Unit>
+		<Unit filename="dxfprofile.cpp" />
+		<Unit filename="dxfprofile.h" />
+		<Unit filename="dxfprofileexport.cpp" />
+		<Unit filename="dxfprofileexport.h" />
+		<Unit filename="dxfroot.cpp" />
+		<Unit filename="dxfroot.h" />
+		<Unit filename="dxfsection.cpp">
+			<Option virtualFolder="DXF_ENTITIES/" />
+		</Unit>
+		<Unit filename="dxfsection.h">
+			<Option virtualFolder="DXF_ENTITIES/" />
+		</Unit>
+		<Unit filename="dxftypeid.cpp">
+			<Option virtualFolder="DXF_ABSTRACT/" />
+		</Unit>
+		<Unit filename="dxftypeid.h">
+			<Option virtualFolder="DXF_ABSTRACT/" />
+		</Unit>
+		<Unit filename="dxfvertex.cpp">
+			<Option virtualFolder="DXF_ENTITIES/" />
+		</Unit>
+		<Unit filename="dxfvertex.h">
+			<Option virtualFolder="DXF_ENTITIES/" />
+		</Unit>
+		<Unit filename="dxfxmloptions.cpp" />
+		<Unit filename="dxfxmloptions.h" />
+		<Extensions>
+			<lib_finder disable_auto="1" />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>
