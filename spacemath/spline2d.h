@@ -1,5 +1,5 @@
 // BeginLicense:
-// Part of: spacelibs - reusable libraries for 3d space calculations 
+// Part of: spacelibs - reusable libraries for 3d space calculations
 // Copyright (C) 2017 Carsten Arnholm
 // All rights reserved
 //
@@ -12,7 +12,7 @@
 // INCLUDING THE WARRANTIES OF DESIGN, MERCHANTABILITY AND FITNESS FOR
 // A PARTICULAR PURPOSE.
 // EndLicense:
-   
+
 #ifndef A_SPLINE2D_H
 #define A_SPLINE2D_H
 
@@ -40,6 +40,14 @@ namespace spacemath {
       // compute the spline from a vector of points
       bool compute_spline(const vector<pos2d>& points);
 
+      // compute the spline from a vector of points and optional end derivatives
+      bool compute_spline(const vector<pos2d>& points
+                        , const vector<int>&    btx     // boundary types  x, [btx1,btx2]
+                        , const vector<double>& bvx     // boundary values x, [bvx1,bvx2]
+                        , const vector<int>&    bty     // boundary types  y, [bty1,bty2]
+                        , const vector<double>& bvy     // boundary values y, [bvy1,bvy2]
+                        );
+
       // return position using parameter [0,1]
       pos2d pos(double t) const;
 
@@ -54,3 +62,4 @@ namespace spacemath {
 }
 
 #endif // SPLINE2D_H
+
