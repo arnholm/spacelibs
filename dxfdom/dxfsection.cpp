@@ -7,6 +7,7 @@
 #include "dxflwpolyline.h"
 #include "dxfpolyline.h"
 #include "dxfpoint.h"
+#include "dxfspline.h"
 #include "dxfblock.h"
 
 #include "dxfdummyentity.h"
@@ -42,6 +43,7 @@ dxfsection::dxfsection(shared_ptr<dxfitem> item, const dxfxmloptions& opt)
          else if(item_value == "LWPOLYLINE") push_back(make_shared<dxflwpolyline>(child,opt));
          else if(item_value == "POLYLINE")   push_back(make_shared<dxfpolyline>(child,opt));
          else if(item_value == "POINT")      push_back(make_shared<dxfpoint>(child,opt));
+         else if(item_value == "SPLINE")     push_back(make_shared<dxfspline>(child,opt));
          else if(item_value == "BLOCK")      push_back(make_shared<dxfblock>(child,opt));
 
          else if(opt.include_raw()) {

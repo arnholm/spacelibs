@@ -4,7 +4,7 @@ dxfline::dxfline(shared_ptr<dxfitem> item, const dxfxmloptions& opt)
 : dxfentity(item,opt)
 {
 
-   if(item->value() != "LINE") throw logic_error("dxflwpolyline, expected 'LINE' but got " + item->value());
+   if(item->value() != "LINE") throw logic_error("dxfline, expected 'LINE' but got " + item->value());
 
    shared_ptr<dxfitem> child = dxfitem::next_item();
    while(child.get() && child->gc() != 0) {

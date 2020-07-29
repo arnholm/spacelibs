@@ -9,6 +9,7 @@
 			<Depends filename="spacemath/spacemath.cbp" />
 		</Project>
 		<Project filename="dxfdom/dxfdom.cbp">
+			<Depends filename="spacemath/spacemath.cbp" />
 			<Depends filename="spaceio/spaceio.cbp" />
 		</Project>
 		<Project filename="BUILD_ALL/BUILD_ALL.cbp">

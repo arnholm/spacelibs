@@ -33,6 +33,11 @@ public:
          m_z *= factor;
       }
 
+   double length() const
+      {
+         return sqrt(m_x*m_x+m_y*m_y+m_z*m_z);
+      }
+
 protected:
 private:
    double m_x;
