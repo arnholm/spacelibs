@@ -68,6 +68,8 @@ dxfspline::dxfspline(shared_ptr<dxfitem> item, const dxfxmloptions& opt)
       child = dxfitem::next_item();
    }
    dxfitem::push_front(child);
+
+  // for(auto& p : m_fp) cout << p.x() << ' ' << p.y() << endl;
 }
 
 dxfspline::~dxfspline()
@@ -86,6 +88,20 @@ bool dxfspline::to_xml(xml_node& xml_this) const
       for(auto& p : m_fp) {
          to_xml_xyz(xml_this,"pxyz",p);
       }
+
+      // boundary conditions for x
+      xml_node xml_bx = xml_this.add_child("bx");
+      xml_bx.add_property("bt0",m_btx[0]);
+      xml_bx.add_property("bv0",m_bvx[0]);
+      xml_bx.add_property("bt1",m_btx[0]);
+      xml_bx.add_property("bv1",m_bvx[0]);
+
+      // boundary conditions for y
+      xml_node xml_by = xml_this.add_child("by");
+      xml_by.add_property("bt0",m_bty[0]);
+      xml_by.add_property("bv0",m_bvy[0]);
+      xml_by.add_property("bt1",m_bty[0]);
+      xml_by.add_property("bv1",m_bvy[0]);
    }
 
    return retval;
@@ -113,29 +129,12 @@ list<dxfpos> dxfspline::compute_curve() const
       double t0 = 0.0;
       double t1 = 1.0;
 
-      if(periodic) {
+      //Spline with boundary condition calculation
+      spline.compute_spline(sp,m_btx,m_bvx,m_bty,m_bvy);
 
-         // repeat the curve 3 times to make it continous across edges,
-         // then extract the middle 3rd parameter range
-         size_t n = sp.size();
-         vector<spacemath::pos2d> sp2;
-         sp2.reserve(3*n);
-         for(size_t i=0; i<n; i++)   sp2.push_back(sp[i]);
-         for(size_t i=1; i<n-1; i++) sp2.push_back(sp[i]);
-         for(size_t i=0; i<n; i++)   sp2.push_back(sp[i]);
-         spline.compute_spline(sp2);
-
-         // define normalised parameter range for original curve
-         t0 = 1.0/3.0;
-         t1 = 2.0/3.0;
-      }
-      else {
-         // boundary condition calculation is questionable here...
-         spline.compute_spline(sp,m_btx,m_bvx,m_bty,m_bvy);
-      }
-
-      // approximate the spline curve using 10x number of segments
-      // TODO: improve this using secant tolerance
+      // approximate the spline curve using 10x number of
+      // polyline segments compared to the fit point segments
+      // TODO: improve this using secant tolerance?
 
       size_t nseg = 10*(points.size()-1);
       double dt   = (t1-t0)/nseg;
