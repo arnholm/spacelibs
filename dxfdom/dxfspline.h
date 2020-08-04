@@ -21,8 +21,10 @@ protected:
 private:
    int            m_flag;    // Spline flag
    dxfpos         m_normal;  // plane normal vector
+   size_t         m_degree;  // Degree of the spline curve
    list<dxfpos>   m_cp;      // control points (not on curve)
-   list<dxfpos>   m_fp;      // fit points (on curve)
+   vector<double> m_kv;      // knot values
+   list<dxfpos>   m_fp;      // fit points (on curve), NOTE: Not always available!
 
    vector<int>    m_btx;     // boundary types  x, [btx1,btx2]
    vector<double> m_bvx;     // boundary values x, [bvx1,bvx2]
