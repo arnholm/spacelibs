@@ -1,6 +1,6 @@
 // BeginLicense:
-// Part of: spacelibs - reusable libraries for 3d space calculations 
-// Copyright (C) 2017 Carsten Arnholm
+// Part of: spacelibs - reusable libraries for 3d space calculations
+// Copyright (C) 2017-2020 Carsten Arnholm
 // All rights reserved
 //
 // This file may be used under the terms of either the GNU General
@@ -12,7 +12,7 @@
 // INCLUDING THE WARRANTIES OF DESIGN, MERCHANTABILITY AND FITNESS FOR
 // A PARTICULAR PURPOSE.
 // EndLicense:
-   
+
 #include "vec2d.h"
 #include "pos2d.h"
 #include <math.h>

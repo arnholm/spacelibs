@@ -1,6 +1,7 @@
 #include "bspline2d.h"
 #include <set>
 #include "tinyspline/tinysplinecxx.h"
+#include <stdexcept>
 
 typedef tinyspline::BSpline::type TSB_type;
 

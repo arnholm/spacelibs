@@ -1,6 +1,6 @@
 // BeginLicense:
 // Part of: spacelibs - reusable libraries for 3d space calculations
-// Copyright (C) 2017 Carsten Arnholm
+// Copyright (C) 2017-2020 Carsten Arnholm
 // All rights reserved
 //
 // This file may be used under the terms of either the GNU General
@@ -36,7 +36,7 @@ namespace spacemath {
                 const std::vector<double>& knots);
       virtual ~bspline2d();
 
-      // return the points on the splie curve corresponding to the knot positions
+      // return the points on the spline curve corresponding to the knot positions
       std::vector<pos2d> knot_points() const;
 
    protected:
