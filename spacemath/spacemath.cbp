@@ -132,6 +132,8 @@
 		<Unit filename="ap/spline3.h" />
 		<Unit filename="bbox3d.cpp" />
 		<Unit filename="bbox3d.h" />
+		<Unit filename="bspline2d.cpp" />
+		<Unit filename="bspline2d.h" />
 		<Unit filename="circle2d.cpp" />
 		<Unit filename="circle2d.h" />
 		<Unit filename="line2d.cpp" />
@@ -157,6 +159,16 @@
 		<Unit filename="spline2d.h" />
 		<Unit filename="spline3d.cpp" />
 		<Unit filename="spline3d.h" />
+		<Unit filename="tinyspline/parson.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="tinyspline/parson.h" />
+		<Unit filename="tinyspline/tinyspline.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="tinyspline/tinyspline.h" />
+		<Unit filename="tinyspline/tinysplinecxx.cxx" />
+		<Unit filename="tinyspline/tinysplinecxx.h" />
 		<Unit filename="vec2d.cpp" />
 		<Unit filename="vec2d.h" />
 		<Unit filename="vec3d.cpp" />
