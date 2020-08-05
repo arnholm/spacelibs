@@ -33,18 +33,25 @@ namespace spacemath {
    class SPACEMATH_PUBLIC bspline2d {
    public:
       bspline2d(const std::vector<pos2d>&  ctrl_pnts,
-                const std::vector<double>& knots);
+                const std::vector<double>& knots,
+                size_t degree);
       virtual ~bspline2d();
 
       // return the points on the spline curve corresponding to the knot positions
       std::vector<pos2d> knot_points() const;
 
+      // return the points on the spline curve corresponding to the knot positions
+      // plus n positions between eack knot pair
+      std::vector<pos2d> interpolated_points(size_t n) const;
+
    protected:
       static std::shared_ptr<tinyspline::BSpline>  compute_spline(const std::vector<pos2d>&  ctrl_pnts,
-                                                                  const std::vector<double>& knots);
+                                                                  const std::vector<double>& knots,
+                                                                  size_t degree);
    private:
-      std::vector<pos2d>                   m_cp;  // control points
-      std::vector<double>                  m_kn;  // knot vector
+      std::vector<pos2d>                   m_cp;     // control points
+      std::vector<double>                  m_kn;     // knot vector
+      size_t                               m_degree; // degreee of spline
       std::shared_ptr<tinyspline::BSpline> m_spline;
    };
 
