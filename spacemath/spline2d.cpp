@@ -93,8 +93,15 @@ namespace spacemath {
       double scale = 1.0/tsum;
       for(int i=1; i<n; i++) t(i) *= scale;
 
-      buildcubicspline(t,x,n,btx[0],bvx[0],btx[1],bvx[1],m_cx);
-      buildcubicspline(t,y,n,bty[0],bvy[0],bty[1],bvy[1],m_cy);
+      // adjust the end derivatives to fit the normalised parameter space
+
+      // originally we have end tangents dy/dx
+      // but we express splines as x(t) and y(t).
+      // We must provide dx/dt and dy/dt as boundary conditions, therefore
+      // the derivatives must be scaled up by the length of the original curve
+
+      buildcubicspline(t,x,n,btx[0],bvx[0]*tsum,btx[1],bvx[1]*tsum,m_cx);
+      buildcubicspline(t,y,n,bty[0],bvy[0]*tsum,bty[1],bvy[1]*tsum,m_cy);
 
       return true;
    }

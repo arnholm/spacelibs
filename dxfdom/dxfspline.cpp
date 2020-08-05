@@ -5,6 +5,7 @@
 dxfspline::dxfspline(shared_ptr<dxfitem> item, const dxfxmloptions& opt)
 : dxfentity(item,opt)
 , m_flag(0)
+, m_degree(0)
 , m_normal(0,0,1)
 {
    m_btx = {0,0};
@@ -30,6 +31,8 @@ dxfspline::dxfspline(shared_ptr<dxfitem> item, const dxfxmloptions& opt)
 
          // spline flag
          case 70: { m_flag  = child->ivalue(); break; }
+         case 71: { m_degree = child->ivalue(); break; }
+         case 72: { m_kv.reserve(child->ivalue()); break; }
 
          // Plane normal
          case 210: { m_normal.set_x(child->dvalue()); break; }
@@ -52,6 +55,9 @@ dxfspline::dxfspline(shared_ptr<dxfitem> item, const dxfxmloptions& opt)
          case 13: { m_btx[1]=1; m_bvx[1]=child->dvalue(); break; }
          case 23: { m_bty[1]=1; m_bvy[1]=child->dvalue(); break; }
 
+         // Knot value
+         case 40: { m_kv.push_back(child->dvalue()); break; }
+
          default: {}
       };
 
@@ -68,6 +74,8 @@ dxfspline::dxfspline(shared_ptr<dxfitem> item, const dxfxmloptions& opt)
       child = dxfitem::next_item();
    }
    dxfitem::push_front(child);
+
+  // for(auto& p : m_fp) cout << p.x() << ' ' << p.y() << endl;
 }
 
 dxfspline::~dxfspline()
@@ -81,11 +89,37 @@ bool dxfspline::to_xml(xml_node& xml_this) const
 
    if(retval) {
       xml_this.add_property("flag",m_flag);
+      xml_this.add_property("degree",m_degree);
       to_xml_xyz(xml_this,"vxyz",m_normal);
 
-      for(auto& p : m_fp) {
-         to_xml_xyz(xml_this,"pxyz",p);
+      xml_node xml_cp = xml_this.add_child("cp");
+      for(auto& p : m_cp) {
+         to_xml_xyz(xml_cp,"pxyz",p);
       }
+      xml_node xml_knots = xml_this.add_child("knots");
+      for(auto& v : m_kv) {
+         xml_node xml_kv = xml_knots.add_child("kv");
+         xml_kv.add_property("v",v);
+      }
+
+      xml_node xml_fp = xml_this.add_child("fp");
+      for(auto& p : m_fp) {
+         to_xml_xyz(xml_fp,"pxyz",p);
+      }
+
+      // boundary conditions for x
+      xml_node xml_bx = xml_this.add_child("bx");
+      xml_bx.add_property("bt0",m_btx[0]);
+      xml_bx.add_property("bv0",m_bvx[0]);
+      xml_bx.add_property("bt1",m_btx[0]);
+      xml_bx.add_property("bv1",m_bvx[0]);
+
+      // boundary conditions for y
+      xml_node xml_by = xml_this.add_child("by");
+      xml_by.add_property("bt0",m_bty[0]);
+      xml_by.add_property("bv0",m_bvy[0]);
+      xml_by.add_property("bt1",m_bty[0]);
+      xml_by.add_property("bv1",m_bvy[0]);
    }
 
    return retval;
@@ -95,7 +129,7 @@ list<dxfpos> dxfspline::compute_curve() const
 {
    list<dxfpos> curve;
 
-   if(m_fp.size() > 0) {
+   if(m_fp.size() > 1) {
       list<dxfpos> points(m_fp);
 
       // expand the fit points if curve is closed
@@ -113,29 +147,12 @@ list<dxfpos> dxfspline::compute_curve() const
       double t0 = 0.0;
       double t1 = 1.0;
 
-      if(periodic) {
+      //Spline with boundary condition calculation
+      spline.compute_spline(sp,m_btx,m_bvx,m_bty,m_bvy);
 
-         // repeat the curve 3 times to make it continous across edges,
-         // then extract the middle 3rd parameter range
-         size_t n = sp.size();
-         vector<spacemath::pos2d> sp2;
-         sp2.reserve(3*n);
-         for(size_t i=0; i<n; i++)   sp2.push_back(sp[i]);
-         for(size_t i=1; i<n-1; i++) sp2.push_back(sp[i]);
-         for(size_t i=0; i<n; i++)   sp2.push_back(sp[i]);
-         spline.compute_spline(sp2);
-
-         // define normalised parameter range for original curve
-         t0 = 1.0/3.0;
-         t1 = 2.0/3.0;
-      }
-      else {
-         // boundary condition calculation is questionable here...
-         spline.compute_spline(sp,m_btx,m_bvx,m_bty,m_bvy);
-      }
-
-      // approximate the spline curve using 10x number of segments
-      // TODO: improve this using secant tolerance
+      // approximate the spline curve using 10x number of
+      // polyline segments compared to the fit point segments
+      // TODO: improve this using secant tolerance?
 
       size_t nseg = 10*(points.size()-1);
       double dt   = (t1-t0)/nseg;
@@ -152,5 +169,10 @@ list<dxfpos> dxfspline::compute_curve() const
 
 void dxfspline::push_profile(dxfprofile& prof) const
 {
-   prof.push_back(std::make_shared<dxfcurve>(prof.pm(),compute_curve()));
+   if(m_fp.size() > 1) {
+      prof.push_back(std::make_shared<dxfcurve>(prof.pm(),compute_curve()));
+   }
+   else {
+      cout << "Error: DXF spline curves must have 2 or more fit points" << endl;
+   }
 }
