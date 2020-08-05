@@ -1,5 +1,6 @@
 #include "dxfspline.h"
 #include <bitset>
+#include "spacemath/bspline2d.h"
 #include "spacemath/spline2d.h"
 
 dxfspline::dxfspline(shared_ptr<dxfitem> item, const dxfxmloptions& opt)
@@ -75,7 +76,27 @@ dxfspline::dxfspline(shared_ptr<dxfitem> item, const dxfxmloptions& opt)
    }
    dxfitem::push_front(child);
 
+   // if the fit points do not exist at this point, compute them from control points & knots
+   if(m_fp.size() == 0) compute_fit_points();
+
   // for(auto& p : m_fp) cout << p.x() << ' ' << p.y() << endl;
+}
+
+void dxfspline::compute_fit_points()
+{
+   vector<spacemath::pos2d> cp;
+   cp.reserve(m_cp.size());
+   for(auto& p : m_cp) cp.push_back(spacemath::pos2d(p.x(),p.y()));
+
+   vector<double> kn;
+   cp.reserve(m_kv.size());
+   for(auto& v : m_kv) kn.push_back(v);
+
+   spacemath::bspline2d bspline(cp,kn,m_degree);
+   std::vector<spacemath::pos2d> kp = (m_degree==3)? bspline.knot_points() : bspline.interpolated_points(1);
+
+   m_fp.clear();
+   for(auto& p : kp) m_fp.push_back(dxfpos(p.x(),p.y(),0.0));
 }
 
 dxfspline::~dxfspline()

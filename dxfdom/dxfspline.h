@@ -17,6 +17,7 @@ public:
 
 protected:
    list<dxfpos> compute_curve() const;
+   void compute_fit_points();
 
 private:
    int            m_flag;    // Spline flag
@@ -24,7 +25,7 @@ private:
    size_t         m_degree;  // Degree of the spline curve
    list<dxfpos>   m_cp;      // control points (not on curve)
    vector<double> m_kv;      // knot values
-   list<dxfpos>   m_fp;      // fit points (on curve), NOTE: Not always available!
+   list<dxfpos>   m_fp;      // fit points (on curve), NOTE: Not always available from DXF!
 
    vector<int>    m_btx;     // boundary types  x, [btx1,btx2]
    vector<double> m_bvx;     // boundary values x, [bvx1,bvx2]
