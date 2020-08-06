@@ -2,12 +2,14 @@
 #include <bitset>
 #include "spacemath/bspline2d.h"
 #include "spacemath/spline2d.h"
+#include "dxfloop_optimizer.h"
 
 dxfspline::dxfspline(shared_ptr<dxfitem> item, const dxfxmloptions& opt)
 : dxfentity(item,opt)
 , m_flag(0)
 , m_degree(0)
 , m_normal(0,0,1)
+, m_sectol(opt.sectol())
 {
    m_btx = {0,0};
    m_bvx = {0,0};
@@ -171,19 +173,25 @@ list<dxfpos> dxfspline::compute_curve() const
       //Spline with boundary condition calculation
       spline.compute_spline(sp,m_btx,m_bvx,m_bty,m_bvy);
 
-      // approximate the spline curve using 10x number of
+      // approximate the spline curve using 20x number of
       // polyline segments compared to the fit point segments
-      // TODO: improve this using secant tolerance?
 
-      size_t nseg = 10*(points.size()-1);
+      size_t nseg = 20*(points.size()-1);
+      vector<pos2d> cpos;
+      cpos.reserve(nseg+1);
       double dt   = (t1-t0)/nseg;
       double t    = t0;
       for(size_t ip=0; ip<nseg+1; ip++) {
          auto p = spline.pos(t);
-         curve.push_back(dxfpos(p.x(),p.y(),0.0));
+         cpos.push_back(p);
          t += dt;
          t = (t < t1)? t : t1;
       }
+
+      // perform secant tolerance optimization
+      dxfloop_optimizer opt(m_sectol*0.2,m_sectol*100000);
+      vector<pos2d> opt_pos = opt.optimize(cpos);
+      for(auto& p : opt_pos)  curve.push_back(dxfpos(p.x(),p.y(),0.0));
    }
    return std::move(curve);
 }

@@ -2,7 +2,6 @@
 #include "spacemath/line2d.h"
 
 #include <map>
-
 typedef std::map<size_t,pos2d> pos_map;
 
 
@@ -19,14 +18,13 @@ static pos_map::iterator next_pos(pos_map& pmap, pos_map::iterator it)
    // next_pos finds the next position in the lopp, possibly beyond the vector end
    pos_map::iterator itnext = it;
    itnext++;
-   if(itnext == pmap.end()) itnext = pmap.begin();
    return itnext;
 }
 
 std::vector<pos2d> dxfloop_optimizer::optimize(const std::vector<pos2d>& points) const
 {
    std::vector<pos2d> opt_points;
-   if(points.size() > 0) {
+   if(points.size() > 3) {
 
       // first make a map to simplify erasing, the key is the original vector index
       // we need to use a map and not an unordered_map, as the sequence is significant
@@ -46,6 +44,12 @@ std::vector<pos2d> dxfloop_optimizer::optimize(const std::vector<pos2d>& points)
 
          // minimal size of loop vector is 3
          if(pmap.size() < 4)break;
+         if(imid  == pmap.end() || inext == pmap.end()) {
+            iprev = pmap.begin();
+            imid  = next_pos(pmap,iprev);
+            inext = next_pos(pmap,imid);
+            finished = false;
+         }
 
          icount++;
 

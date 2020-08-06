@@ -227,6 +227,8 @@
 		<Unit filename="dxfloop.h">
 			<Option virtualFolder="DXF_TOPOLOGY/" />
 		</Unit>
+		<Unit filename="dxfloop_optimizer.cpp" />
+		<Unit filename="dxfloop_optimizer.h" />
 		<Unit filename="dxflwpolyline.cpp">
 			<Option virtualFolder="DXF_ENTITIES/" />
 		</Unit>

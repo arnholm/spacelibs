@@ -31,6 +31,8 @@ private:
    vector<double> m_bvx;     // boundary values x, [bvx1,bvx2]
    vector<int>    m_bty;     // boundary types  y, [bty1,bty2]
    vector<double> m_bvy;     // boundary values y, [bvy1,bvy2]
+
+   double         m_sectol;  // secant tolerance
 };
 
 #endif // DXFSPLINE_H
