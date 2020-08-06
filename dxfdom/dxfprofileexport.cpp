@@ -41,6 +41,7 @@ string dxfprofileexport::GetFunctionName(const string& path)
    string path_copy(path);
    std::replace(path_copy.begin(),path_copy.end(), '-', '_');
    std::replace(path_copy.begin(),path_copy.end(), ' ', '_');
+   std::replace(path_copy.begin(),path_copy.end(), '.', '_');
    if(!isalpha(path_copy[0])) path_copy = "_" + path_copy;
    return path_copy+"_dxf()";
 }
