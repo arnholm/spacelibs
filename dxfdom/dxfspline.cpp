@@ -178,10 +178,11 @@ list<dxfpos> dxfspline::compute_curve() const
       size_t nseg = 10*(points.size()-1);
       double dt   = (t1-t0)/nseg;
       double t    = t0;
-      while(t <= t1) {
+      for(size_t ip=0; ip<nseg+1; ip++) {
          auto p = spline.pos(t);
          curve.push_back(dxfpos(p.x(),p.y(),0.0));
          t += dt;
+         t = (t < t1)? t : t1;
       }
    }
    return std::move(curve);
