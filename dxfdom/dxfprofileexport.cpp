@@ -118,8 +118,8 @@ string dxfprofileexport::as_polygon(std::shared_ptr<dxfloop> loop, bool fwd)
    out << "polygon( array<pos2d@> = { ";
    for(auto p : *loop) {
       if(icount > 0) out << ',';
-      out << "pos2d(" << setprecision(10) << p.x() << ','
-                      << setprecision(10) << p.y() << ')';
+      out << "{" << setprecision(10) << p.x() << ','
+                 << setprecision(10) << p.y() << '}';
       icount++;
    }
    out << "} )";
