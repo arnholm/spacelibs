@@ -5,6 +5,12 @@
 #include "dxfpos.h"
 #include <vector>
 
+// Splines in DXF can be of degree 2 or 3
+// Sometimes, only control points + knots are specified
+// Sometimes, fit points are specified in addition to control points & knots
+// It is possible to specify a DXF spline also with only fit points
+// End tangents (1st derivatives) may be applied to fit points data, but this is not 100% clear
+//    https://stackoverflow.com/questions/62472305/how-does-autocad-calculate-end-tangents-for-splines-defined-only-by-fit-points
 class DXFDOM_PUBLIC dxfspline : public dxfentity {
 public:
    dxfspline(shared_ptr<dxfitem> item, const dxfxmloptions& opt);

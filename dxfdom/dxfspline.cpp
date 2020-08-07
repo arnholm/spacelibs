@@ -34,7 +34,11 @@ dxfspline::dxfspline(shared_ptr<dxfitem> item, const dxfxmloptions& opt)
 
          // spline flag
          case 70: { m_flag  = child->ivalue(); break; }
+
+         // Degree of spline
          case 71: { m_degree = child->ivalue(); break; }
+
+         // number of knot values
          case 72: { m_kv.reserve(child->ivalue()); break; }
 
          // Plane normal
@@ -46,6 +50,10 @@ dxfspline::dxfspline(shared_ptr<dxfitem> item, const dxfxmloptions& opt)
          case 10:
          case 20: { cp[gc] = opt.scale_factor()*child->dvalue(); break; }
 
+         // Knot value
+         // Question: Is this dependent on scale factor? ...probably
+         case 40: { m_kv.push_back(child->dvalue()); break; }
+
          // Fit point (on curve)
          case 11:
          case 21: { fp[gc] = opt.scale_factor()*child->dvalue(); break; }
@@ -54,12 +62,9 @@ dxfspline::dxfspline(shared_ptr<dxfitem> item, const dxfxmloptions& opt)
          case 12: { m_btx[0]=1; m_bvx[0]=child->dvalue(); break; }
          case 22: { m_bty[0]=1; m_bvy[0]=child->dvalue(); break; }
 
-         // end tangent
+         // End tangent
          case 13: { m_btx[1]=1; m_bvx[1]=child->dvalue(); break; }
          case 23: { m_bty[1]=1; m_bvy[1]=child->dvalue(); break; }
-
-         // Knot value
-         case 40: { m_kv.push_back(child->dvalue()); break; }
 
          default: {}
       };
@@ -80,12 +85,12 @@ dxfspline::dxfspline(shared_ptr<dxfitem> item, const dxfxmloptions& opt)
 
    // if the fit points do not exist at this point, compute them from control points & knots
    if(m_fp.size() == 0) compute_fit_points();
-
-  // for(auto& p : m_fp) cout << p.x() << ' ' << p.y() << endl;
 }
 
 void dxfspline::compute_fit_points()
 {
+   // When fit points are not available from DXF, we compute them using spacemath::bspline2d
+
    vector<spacemath::pos2d> cp;
    cp.reserve(m_cp.size());
    for(auto& p : m_cp) cp.push_back(spacemath::pos2d(p.x(),p.y()));
@@ -94,17 +99,19 @@ void dxfspline::compute_fit_points()
    cp.reserve(m_kv.size());
    for(auto& v : m_kv) kn.push_back(v);
 
+   // if the DXF spline is cubic (degree=3), we use the knot points directly,
+   // otherwise (degree=2) we introduce additional points in between because we later use
+   // cubic spline spacemath::spline2d with end tangents for further interpolation
    spacemath::bspline2d bspline(cp,kn,m_degree);
    std::vector<spacemath::pos2d> kp = (m_degree==3)? bspline.knot_points() : bspline.interpolated_points(1);
 
+   // Store the final optimised fit points
    m_fp.clear();
    for(auto& p : kp) m_fp.push_back(dxfpos(p.x(),p.y(),0.0));
 }
 
 dxfspline::~dxfspline()
-{
-}
-
+{}
 
 bool dxfspline::to_xml(xml_node& xml_this) const
 {
@@ -155,22 +162,22 @@ list<dxfpos> dxfspline::compute_curve() const
    if(m_fp.size() > 1) {
       list<dxfpos> points(m_fp);
 
-      // expand the fit points if curve is closed
+      // Interpret spline flags
       std::bitset<32> bits(m_flag);
       bool closed      = bits[0];
       bool periodic    = bits[1];
 
-      // compute the spline from fit points
+      // compute cubic spline from fit points
       spacemath::spline2d spline;
       vector<spacemath::pos2d> sp;
       sp.reserve(points.size());
       for(auto& fp : points) sp.push_back(spacemath::pos2d(fp.x(),fp.y()));
 
-      // standard parameter range for spline curve
+      // standard parameter range for spacemath::spline2d curve
       double t0 = 0.0;
       double t1 = 1.0;
 
-      //Spline with boundary condition calculation
+      // Cubic spline with optional boundary condition calculation
       spline.compute_spline(sp,m_btx,m_bvx,m_bty,m_bvy);
 
       // approximate the spline curve using 20x number of
@@ -188,7 +195,8 @@ list<dxfpos> dxfspline::compute_curve() const
          t = (t < t1)? t : t1;
       }
 
-      // perform secant tolerance optimization
+      // reduce the resulting number of points using secant tolerance optimization
+      // The density of resulting points will depend on local curvature
       dxfloop_optimizer opt(m_sectol*0.2,m_sectol*100000);
       vector<pos2d> opt_pos = opt.optimize(cpos);
       for(auto& p : opt_pos)  curve.push_back(dxfpos(p.x(),p.y(),0.0));

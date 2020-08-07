@@ -20,6 +20,18 @@ namespace spacemath {
    bspline2d::~bspline2d()
    { }
 
+   std::pair<double,double> bspline2d::range() const
+   {
+      tinyspline::Domain dom = m_spline->domain();
+      return std::make_pair<double,double>(dom.min(),dom.max());
+   }
+
+   pos2d bspline2d::evaluate(double u) const
+   {
+      std::vector<tinyspline::real> result = m_spline->eval(u).result();
+      return pos2d(result[0],result[1]);
+   }
+
    std::shared_ptr<tinyspline::BSpline>  bspline2d::compute_spline(const std::vector<pos2d>&  cp,
                                                                    const std::vector<double>& kn,
                                                                    size_t degree)
@@ -42,7 +54,7 @@ namespace spacemath {
       }
       spline->setControlPoints(ctrlp);
 
-      // Define and set the knots vector
+      // Define and set the knot vector
       std::vector<tinyspline::real> knots;
       knots.reserve(kn.size());
       for(auto& k : kn) {

@@ -26,7 +26,7 @@ namespace spacemath {
 
    using namespace std;
 
-   // spline2d expresses a spline curve in 2d space
+   // spline2d expresses a cubic (degree=3) spline curve in 2d space
    // so that (x,y) = pos(t), where t=[0,1]
    // t=0 corresponds to first point given
    // t=1 corresponds to last point given
@@ -37,7 +37,7 @@ namespace spacemath {
       spline2d(const vector<pos2d>& points);
       virtual ~spline2d();
 
-      // compute the spline from a vector of points
+      // compute the cubic spline from a vector of points on the curve
       bool compute_spline(const vector<pos2d>& points);
 
       // compute the spline from a vector of points and optional end derivatives
