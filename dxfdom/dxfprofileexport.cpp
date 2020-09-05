@@ -63,7 +63,7 @@ bool dxfprofileexport::export_as(const dxfprofile& profile, const string& path, 
    strftime(buff, lbuf, "%Y-%m-%d %H:%M:%S", localtime(&now));
 
    ofstream out(path);
-   out << "// AngelCAD script" << endl;
+   out << "// AngelCAD code. In main script use: #include \"" << GetFullName(path) << "\" " << endl;
    out << "shape2d@ " + profile_function << endl;
    out << "{" << endl;
    out << "   // Auto-generated from DXF at "<< buff  << endl;
