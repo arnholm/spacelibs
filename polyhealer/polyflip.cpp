@@ -221,6 +221,13 @@ size_t polyflip::flip_faces()
       throw std::logic_error("polyflip::flip_faces(...) not all faces visited, is this polyhedron a single, connected body?");
    }
 
+   if(nflip > 0) {
+      // we have flipped faces, but so far only in a copy of the input
+      // update the unput polyhedron to complete the operation
+      m_poly.update_input();
+   }
+
+
    return nflip;
 }
 
