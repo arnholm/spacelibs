@@ -211,7 +211,7 @@ std::shared_ptr<ph3d_vector>  polyhealer::find_lumps(bool flip_faces)
       size_t ilump=0;
       for(auto lump : *lumps) {
          ostringstream out;
-         polyflip flipper(lump,m_dtol*0.01);
+         polyflip flipper(lump,m_dtol,m_atol);
          size_t nflip = flipper.flip_faces();
          out << "lump " << ilump << " flipped "<< nflip << ((nflip==1)? " face":" faces");
          m_messages.push_back(out.str());

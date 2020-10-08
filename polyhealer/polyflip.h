@@ -28,7 +28,7 @@
 class POLYHEALER_PUBLIC polyflip {
 public:
 
-   polyflip(const std::shared_ptr<polyhedron3d> poly, double dtol = 1.0E-4);
+   polyflip(const std::shared_ptr<polyhedron3d> poly, double dtol, double m_atol);
    virtual ~polyflip();
 
    // perform the actual face flipping, this modifies the polyhedron
@@ -36,7 +36,7 @@ public:
 
 protected:
    // check if pont p is inside triangle a,b,c
-   static bool p_in_triangle(const pos3d& p, const pos3d& a, const pos3d& b, const pos3d& c);
+   bool p_in_triangle(const pos3d& p, const pos3d& a, const pos3d& b, const pos3d& c);
 
    // count the intersections with other faces in the positive direction of the face normal
    size_t count_positive_intersections(id_face iface0);
@@ -47,6 +47,7 @@ protected:
 private:
    mutable_polyhedron3d  m_poly;
    double m_dtol;     // distance tolerance
+   double m_atol;     // area tolerance
 };
 
 #endif // POLYFLIP_H

@@ -23,9 +23,10 @@
 #include <cmath>
 #include <stdexcept>
 
-polyflip::polyflip(const std::shared_ptr<polyhedron3d> poly, double dtol)
+polyflip::polyflip(const std::shared_ptr<polyhedron3d> poly, double dtol, double atol)
 : m_poly(poly)
 , m_dtol(dtol)
+, m_atol(atol)
 {}
 
 polyflip::~polyflip()
@@ -58,7 +59,12 @@ bool polyflip::p_in_triangle(const pos3d& p, const pos3d& a, const pos3d& b, con
    double area_apc = 0.5*ap.cross(ac).length();
 
    // if the sum of subtriangle areas is greater than the abc triangle area, then the point is outside
-   if((area_abp+area_pbc+area_apc) > area_abc) return false;
+   double asum = area_abp+area_pbc+area_apc;
+   double diff = asum - area_abc;
+
+   // we must accept a small area tolerance here, exact zero is too strict
+   // Remember the difference can never be negative
+   if(diff > m_atol) return false;
 
    // ok, point is inside triangle area
    return true;
