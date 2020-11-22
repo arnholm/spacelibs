@@ -15,6 +15,8 @@ public:
    bool export_scad(const dxfprofile& profile, const string& path);
    void export_p2d(const dxfprofile& profile, const string& path);
 
+   string scad_booleans(size_t icount, std::shared_ptr<dxfloop> A_loop, list<std::shared_ptr<dxfloop>>& loop_list);
+
 private:
 
    string GetFullPath(const string& path);
@@ -28,7 +30,6 @@ private:
    string scad_polygon(std::shared_ptr<dxfloop> loop, bool fwd);
 
    string indent(size_t icount);
-   string scad_booleans(size_t icount, std::shared_ptr<dxfloop> A_loop, list<std::shared_ptr<dxfloop>>& loop_list);
 
 };
 

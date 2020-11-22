@@ -7,6 +7,7 @@ dxfxmloptions::dxfxmloptions(bool include_raw, double scale_factor, double secto
 , m_sectol(sectol)
 , m_epspnt(epspnt)
 , m_keep_case(keep_case)
+, m_auto_close(false)
 {
    // make sure layer names are all uppercase here
    for(auto l : layers) {

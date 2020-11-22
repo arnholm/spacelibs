@@ -17,6 +17,12 @@ dxfcurve::dxfcurve(dxfposmap<size_t>& pm, const std::list<dxfpos>& points)
    m_p.pop_back();
 }
 
+dxfcurve::dxfcurve(size_t n1, size_t n2)
+: m_id(0)
+, m_n1(n1)
+, m_n2(n2)
+{}
+
 dxfcurve::~dxfcurve()
 {}
 

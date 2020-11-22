@@ -84,6 +84,8 @@ void dxfprofile::build_loops()
       }
    }
 
+   if(m_opt.auto_close()) auto_close(pcurves);
+
    cout << " Starting from " << pcurves.size() << " curves" << endl;
 
    // Build the contours by pulling curves from pcurves
@@ -105,6 +107,47 @@ void dxfprofile::build_loops()
 
 }
 
+void dxfprofile::auto_close(pcurve_map& pcurves)
+{
+   std::set<size_t> manifold_1;
+   std::set<size_t> manifold_n;
+
+   for(auto& p : pcurves) {
+      auto c = p.second;
+
+      size_t n1 = c->n1();
+      size_t n2 = c->n2();
+
+      dxfnode& node1 = node(n1);
+      dxfnode& node2 = node(n2);
+
+      switch(node1.manifold()){
+         case 1:   { manifold_1.insert(n1); break; }
+         case 2:   { break; }
+         default:  { manifold_n.insert(n1); }
+      };
+
+      switch(node2.manifold()){
+         case 1:   { manifold_1.insert(n2); break; }
+         case 2:   { break; }
+         default:  { manifold_n.insert(n2); }
+      };
+   }
+
+   if(manifold_n.size() == 0  && manifold_1.size() == 2) {
+      // we have an open loop, so close it
+      auto i = manifold_1.begin();
+      size_t n1 = *i++;
+      size_t n2 = *i++;
+      auto c = std::make_shared<dxfcurve>(n1,n2);
+      push_back(c);
+
+      node(n1).insert(c);
+      node(n2).insert(c);
+
+      pcurves[c->id()] = c;
+   }
+}
 
 void dxfprofile::build_loop(pcurve_map& pcurves)
 {

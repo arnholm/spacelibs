@@ -14,6 +14,7 @@ class DXFDOM_PUBLIC dxfcurve {
 public:
 
    dxfcurve(dxfposmap<size_t>& pm, const std::list<dxfpos>& points);
+   dxfcurve(size_t n1, size_t n2);
    virtual ~dxfcurve();
    void set_id(size_t id) { m_id = id; }
    size_t id() const { return m_id; }

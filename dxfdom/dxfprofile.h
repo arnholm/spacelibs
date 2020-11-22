@@ -62,6 +62,7 @@ protected:
    typedef std::map<size_t,std::shared_ptr<dxfcurve>> pcurve_map;
 
    void build_loop(pcurve_map& pcurves);
+   void auto_close(pcurve_map& pcurves);
    void orient_loops();
 
 private:

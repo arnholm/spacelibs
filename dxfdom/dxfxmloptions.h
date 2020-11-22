@@ -16,8 +16,10 @@ public:
    inline double      sectol() const       { return m_sectol; }
    inline double      epspnt() const       { return m_epspnt; }
    bool layer_selected(const std::string& layer) const;
+   bool auto_close() const { return m_auto_close; }
 
    void set_layers(const std::set<std::string>& layers) { m_layers = layers; }
+   void set_auto_close(bool auto_close) { m_auto_close = auto_close; }
 
 private:
    bool                  m_include_raw;
@@ -26,5 +28,6 @@ private:
    double                m_epspnt;        // tolerance for point comparison
    std::set<std::string> m_layers;        // selected layers to convert (or empty vector to get all)
    bool                  m_keep_case;     // true if layer case to be preserved
+   bool                  m_auto_close;    // default:false. Close open loops
 };
 #endif // DFXXMLOPTIONS_H
