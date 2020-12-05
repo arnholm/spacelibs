@@ -143,6 +143,12 @@ namespace spacemath {
       return fabs(signed_area());
    }
 
+   void polygon2d::reverse()
+   {
+      std::reverse(m_vert.begin(),m_vert.end());
+   }
+
+
    /*
    static std::ostream& operator<<(std::ostream& out, const line2d& l)
    {

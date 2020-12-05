@@ -67,6 +67,9 @@ namespace spacemath {
       // return the absolute area, regardless edge order
       double area() const;
 
+      // reverse the orientation of the polygon by reversing the vertex order
+      void reverse();
+
       // check for polygon self-intersection by naive edge-edge comparison, this is O2
       // returns true if at least one self intersection is detected
       // an intersection happens when the intersection point is within <0,1> and distance to endpoints are > dtol
