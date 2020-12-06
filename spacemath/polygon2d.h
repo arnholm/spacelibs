@@ -45,6 +45,7 @@ namespace spacemath {
       virtual ~polygon2d();
 
       typedef vector<pos2d>::const_iterator const_iterator;
+      typedef vector<pos2d>::iterator iterator;
 
       polygon2d& operator =(const polygon2d& other);
 
@@ -79,6 +80,9 @@ namespace spacemath {
       // iteration over the boundary points
       const_iterator begin() const;
       const_iterator end() const;
+
+      iterator begin() { return m_vert.begin(); }
+      iterator end()   { return m_vert.end(); }
 
       // compute shortest connection line between point and polygon
       // If no projections found, shortest point-to-point line is returned instead
