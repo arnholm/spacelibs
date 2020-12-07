@@ -84,7 +84,7 @@
 				<Option host_application="/work/cpde_git/proto/dxfread/.cmp/gcc/bin/Debug/dxfreadd" />
 				<Option run_host_application_in_terminal="0" />
 				<Compiler>
-					<Add option="-std=c++0x" />
+					<Add option="-std=c++11" />
 					<Add option="-W" />
 					<Add option="-fPIC" />
 					<Add option="-fexceptions" />
@@ -110,7 +110,7 @@
 				<Option createDefFile="1" />
 				<Option createStaticLib="1" />
 				<Compiler>
-					<Add option="-std=c++0x" />
+					<Add option="-std=c++11" />
 					<Add option="-W" />
 					<Add option="-fPIC" />
 					<Add option="-fexceptions" />
