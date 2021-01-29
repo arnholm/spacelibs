@@ -73,10 +73,16 @@ namespace spacemath {
       Quaternion_copy(other.m_quat,m_quat);
    }
 
-   quaternion::quaternion(double w, double v1, double v2, double v3)
+   quaternion& quaternion::operator=(const quaternion& other)
+   {
+      Quaternion_copy(other.m_quat,m_quat);
+      return *this;
+   }
+
+   quaternion::quaternion(double x, double y, double z, double w)
    : m_quat(new Quaternion)
    {
-      Quaternion_set(w,v1,v2,v3,m_quat);
+      Quaternion_set(w,x,y,z,m_quat);
    }
 
    quaternion::~quaternion()
@@ -85,6 +91,11 @@ namespace spacemath {
    }
 
    // ==========
+
+   double quaternion::x() const { return m_quat->v[0]; }
+   double quaternion::y() const { return m_quat->v[1]; }
+   double quaternion::z() const { return m_quat->v[2]; }
+   double quaternion::w() const { return m_quat->w; }
 
    quaternion& quaternion::normalize()
    {

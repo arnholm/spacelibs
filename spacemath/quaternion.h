@@ -8,24 +8,34 @@ struct Quaternion;
 
 namespace spacemath {
 
+   // basic quaternion with 4x4 homogeneous matrix compatibility
    class SPACEMATH_PUBLIC quaternion {
       public:
 
-         // identity quaternion
+         // default construction => identity quaternion
          quaternion();
 
          // copy constructor
          quaternion(const quaternion& other);
 
-         // construct from rotational part of Homogenous 4x4 transformation matrix M
-         // note that any translational part in M is ignored (4th column)
-         quaternion(const HTmatrix& M);
-
-         // construct from scalar + 3 vector terms
-         quaternion(double w, double v1, double v2, double v3);
+         // assignment operator
+         quaternion& operator=(const quaternion& other);
 
          // destructor
          virtual ~quaternion();
+
+         // construct from rotational part of homogeneous 4x4 transformation matrix M
+         // note that any translational part in M is ignored (4th column)
+         quaternion(const HTmatrix& M);
+
+         // construct from 3 vector terms + scalar
+         quaternion(double x, double y, double z, double w);
+
+         // return quaternion parameters
+         double x() const;
+         double y() const;
+         double z() const;
+         double w() const;
 
          // normalise and return *this
          quaternion& normalize();
@@ -37,10 +47,10 @@ namespace spacemath {
          double norm() const;
 
          // Interpolate between two quaternions using "slerp" algorithm
-         // * p = interpolation parameter, range [0, 1], corresponding to [q1,q2]
+         // p = interpolation parameter, range [0, 1], corresponding to [q1,q2]
          static quaternion interpolate(const quaternion& q1, const quaternion& q2, double p);
 
-         // Convert to Homogenous 4x4 transformation matrix M
+         // Convert to homogeneous 4x4 transformation matrix M
          // note that translational part will always be zero
          HTmatrix matrix() const;
 
