@@ -154,6 +154,12 @@
 		<Unit filename="pos2d.h" />
 		<Unit filename="pos3d.cpp" />
 		<Unit filename="pos3d.h" />
+		<Unit filename="quaternion.cpp" />
+		<Unit filename="quaternion.h" />
+		<Unit filename="quaternion_c/Quaternion.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="quaternion_c/Quaternion.h" />
 		<Unit filename="spacemath_config.h" />
 		<Unit filename="spline2d.cpp" />
 		<Unit filename="spline2d.h" />
@@ -175,10 +181,7 @@
 		<Unit filename="vec3d.h" />
 		<Unit filename="vmath/vector_math.h" />
 		<Extensions>
-			<code_completion />
-			<envvars />
 			<lib_finder disable_auto="1" />
-			<debugger />
 		</Extensions>
 	</Project>
 </CodeBlocks_project_file>
