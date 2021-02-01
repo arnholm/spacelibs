@@ -69,9 +69,9 @@ namespace spacemath {
       M(1,2) = m_zvec.y();
       M(2,2) = m_zvec.z();
 
-      M(0,2) = p.x();
-      M(1,2) = p.y();
-      M(2,2) = p.z();
+      M(0,3) = p.x();
+      M(1,3) = p.y();
+      M(2,3) = p.z();
 
       return std::move(M);
    }
