@@ -18,6 +18,8 @@
 
 #include "spacemath_config.h"
 #include "vec3d.h"
+#include "pos3d.h"
+#include "HTmatrix.h"
 
 namespace spacemath {
 
@@ -37,6 +39,9 @@ namespace spacemath {
       const vec3d& x() const  { return m_xvec; }
       const vec3d& y() const  { return m_yvec; }
       const vec3d& z() const  { return m_zvec; }
+
+      // return as 4x4 matrix
+      HTmatrix matrix(const pos3d& p = pos3d()) const;
 
    private:
       vec3d m_xvec;

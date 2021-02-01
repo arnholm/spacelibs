@@ -221,4 +221,11 @@ namespace spacemath {
       }
    }
 
+   void polyhedron3d::transform_inplace(const HTmatrix& T)
+   {
+      for(auto& v : m_vert) {
+         v = T*v;
+      }
+   }
+
 }

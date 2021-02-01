@@ -53,4 +53,27 @@ namespace spacemath {
       return *this;
    }
 
+   HTmatrix locsys3d::matrix(const pos3d& p) const
+   {
+      HTmatrix M; // identity matrix
+
+      M(0,0) = m_xvec.x();
+      M(1,0) = m_xvec.y();
+      M(2,0) = m_xvec.z();
+
+      M(0,1) = m_yvec.x();
+      M(1,1) = m_yvec.y();
+      M(2,1) = m_yvec.z();
+
+      M(0,2) = m_zvec.x();
+      M(1,2) = m_zvec.y();
+      M(2,2) = m_zvec.z();
+
+      M(0,2) = p.x();
+      M(1,2) = p.y();
+      M(2,2) = p.z();
+
+      return std::move(M);
+   }
+
 }

@@ -96,6 +96,9 @@ namespace spacemath {
       // verify polyhedron for common mistakes, throw exception on error
       void verify_polyhedron() const;
 
+      // transform polyhedron in-place
+      void transform_inplace(const HTmatrix& T);
+
    public:
       // compute edge use count
       edge_count_map construct_edge_use_count() const;
