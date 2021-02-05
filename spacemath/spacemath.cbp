@@ -142,6 +142,12 @@
 		<Unit filename="line3d.h" />
 		<Unit filename="locsys3d.cpp" />
 		<Unit filename="locsys3d.h" />
+		<Unit filename="maths/mat.h" />
+		<Unit filename="maths/maths.h" />
+		<Unit filename="maths/quat.h" />
+		<Unit filename="maths/swizzle.h" />
+		<Unit filename="maths/util.h" />
+		<Unit filename="maths/vec.h" />
 		<Unit filename="plane3d.cpp" />
 		<Unit filename="plane3d.h" />
 		<Unit filename="polygon2d.cpp" />
@@ -154,12 +160,7 @@
 		<Unit filename="pos2d.h" />
 		<Unit filename="pos3d.cpp" />
 		<Unit filename="pos3d.h" />
-		<Unit filename="quaternion.cpp" />
 		<Unit filename="quaternion.h" />
-		<Unit filename="quaternion_c/Quaternion.c">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="quaternion_c/Quaternion.h" />
 		<Unit filename="spacemath_config.h" />
 		<Unit filename="spline2d.cpp" />
 		<Unit filename="spline2d.h" />
@@ -180,8 +181,13 @@
 		<Unit filename="vec3d.cpp" />
 		<Unit filename="vec3d.h" />
 		<Unit filename="vmath/vector_math.h" />
+		<Unit filename="vmath_quaternion.cpp" />
+		<Unit filename="vmath_quaternion.h" />
 		<Extensions>
 			<lib_finder disable_auto="1" />
+			<envvars />
+			<code_completion />
+			<debugger />
 		</Extensions>
 	</Project>
 </CodeBlocks_project_file>
