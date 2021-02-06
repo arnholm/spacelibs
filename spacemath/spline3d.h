@@ -40,6 +40,9 @@ namespace spacemath {
       // compute the spline from a vector of points
       bool compute_spline(const vector<pos3d>& points);
 
+      // circa length of curve, based on points polyline
+      double polylen() const { return m_polylen; }
+
       // return position using parameter [0,1]
       pos3d pos(double t) const;
 
@@ -50,6 +53,7 @@ namespace spacemath {
       ap::real_1d_array m_cx;
       ap::real_1d_array m_cy;
       ap::real_1d_array m_cz;
+      double            m_polylen;
    };
 
 }

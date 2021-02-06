@@ -19,9 +19,11 @@
 namespace spacemath {
 
    spline3d::spline3d()
+   : m_polylen(0)
    {}
 
    spline3d::spline3d(const vector<pos3d>& points)
+   : m_polylen(0)
    {
       compute_spline(points);
    }
@@ -54,6 +56,8 @@ namespace spacemath {
          y(i) = points[i].y();
          z(i) = points[i].z();
       }
+
+      m_polylen = tsum;
 
       // normalise the parameters [0,1]
       double scale = 1.0/tsum;
