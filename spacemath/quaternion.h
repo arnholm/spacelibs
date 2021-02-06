@@ -135,6 +135,8 @@ namespace spacemath {
          }
       }
       m_quat = rot;
+
+      if(normalize)m_quat.normalize();
    }
 
 
