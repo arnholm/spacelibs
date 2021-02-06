@@ -99,6 +99,9 @@ namespace spacemath {
       // transform polyhedron in-place
       void transform_inplace(const HTmatrix& T);
 
+      // create a transformed copy of this polyhedron
+      std::shared_ptr<polyhedron3d> transform_copy(const HTmatrix& T) const;
+
    public:
       // compute edge use count
       edge_count_map construct_edge_use_count() const;

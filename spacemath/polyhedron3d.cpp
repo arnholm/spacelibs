@@ -228,4 +228,14 @@ namespace spacemath {
       }
    }
 
+   std::shared_ptr<polyhedron3d> polyhedron3d::transform_copy(const HTmatrix& T) const
+   {
+      vtx_vec vert;
+      vert.reserve(m_vert.size());
+      for(auto& v : m_vert) {
+         vert.push_back(T*v);
+      }
+      return std::make_shared<polyhedron3d>(vert,m_face);
+   }
+
 }
