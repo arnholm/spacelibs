@@ -144,6 +144,8 @@
 		<Unit filename="obj_io.h" />
 		<Unit filename="off_io.cpp" />
 		<Unit filename="off_io.h" />
+		<Unit filename="polyhedron_io.cpp" />
+		<Unit filename="polyhedron_io.h" />
 		<Unit filename="spaceio_config.h" />
 		<Unit filename="stl_io.cpp" />
 		<Unit filename="stl_io.h" />
@@ -152,10 +154,7 @@
 		<Unit filename="xml_tree.cpp" />
 		<Unit filename="xml_tree.h" />
 		<Extensions>
-			<code_completion />
-			<envvars />
 			<lib_finder disable_auto="1" />
-			<debugger />
 		</Extensions>
 	</Project>
 </CodeBlocks_project_file>
