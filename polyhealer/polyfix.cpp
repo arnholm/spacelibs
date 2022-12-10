@@ -20,6 +20,7 @@
 #include <string>
 #include <sstream>
 #include <algorithm>
+#include <limits>
 #include <sstream>
 
 #include "multimap_pos3d.h"

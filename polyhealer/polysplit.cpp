@@ -16,6 +16,7 @@
 #include "spacemath/line3d.h"
 
 #include <iostream>
+#include <limits>
 
 polysplit::polysplit(std::shared_ptr<polyhedron3d> poly, double dtol, double atol)
 : m_poly(poly)

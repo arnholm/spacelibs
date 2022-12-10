@@ -20,6 +20,7 @@
 #include <algorithm>
 #include <iterator>
 #include <cmath>
+#include <limits>
 
 /*
 ** Author: Carsten Arnholm, 2008

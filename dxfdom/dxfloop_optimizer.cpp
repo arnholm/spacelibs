@@ -1,5 +1,6 @@
 #include "dxfloop_optimizer.h"
 #include "spacemath/line2d.h"
+#include <cstddef>
 
 #include <map>
 typedef std::map<size_t,pos2d> pos_map;

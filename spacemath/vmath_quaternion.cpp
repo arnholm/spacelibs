@@ -1,5 +1,6 @@
 #include "vmath_quaternion.h"
 #include <utility>
+#include <limits>
 #include "maths/quat.h"
 
 namespace spacemath {
