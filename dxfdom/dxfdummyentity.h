@@ -10,9 +10,10 @@ public:
 
    virtual void push_profile(dxfprofile& prof) const {}
 
+   virtual bool to_xml(xml_node& xml_this) const;
+
 protected:
 
-private:
 };
 
 #endif // DXFDUMMYENTITY_H

@@ -17,3 +17,17 @@ dxfdummyentity::dxfdummyentity(shared_ptr<dxfitem> item, const dxfxmloptions& op
 
 dxfdummyentity::~dxfdummyentity()
 {}
+
+bool dxfdummyentity::to_xml(xml_node& xml_this) const
+{
+   bool retval = dxfentity::to_xml(xml_this);
+   if(retval) {
+
+      shared_ptr<dxfitem> item = this->item();
+
+      xml_this.add_property("value",item->value());
+      xml_this.add_property("lno",item->lno());
+   }
+
+   return retval;
+}
