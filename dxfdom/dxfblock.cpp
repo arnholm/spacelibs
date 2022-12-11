@@ -33,6 +33,7 @@ dxfblock::dxfblock(shared_ptr<dxfitem> item, const dxfxmloptions& opt)
 
          else if(item_value == "SOLID")      push_back(make_shared<dxfdummyentity>(child,opt));
          else if(item_value == "MTEXT")      push_back(make_shared<dxfdummyentity>(child,opt));
+         else if(item_value == "TEXT")       push_back(make_shared<dxfdummyentity>(child,opt));
          else if(item_value == "HATCH")      push_back(make_shared<dxfdummyentity>(child,opt));
          else {
             throw logic_error("dxfblock, child entity not supported " + item_value);
