@@ -205,10 +205,10 @@ list<dxfpos> dxfspline::compute_curve() const
 }
 
 
-void dxfspline::push_profile(dxfprofile& prof) const
+void dxfspline::push_profile(dxfprofile& prof, const HTmatrix& T) const
 {
    if(m_fp.size() > 1) {
-      prof.push_back(std::make_shared<dxfcurve>(prof.pm(),compute_curve()));
+      prof.push_back(std::make_shared<dxfcurve>(prof.pm(),compute_curve(),T));
    }
    else {
       cout << "Error: DXF spline curves must have 2 or more fit points" << endl;

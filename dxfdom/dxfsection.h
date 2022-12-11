@@ -3,6 +3,8 @@
 
 #include "dxfobject.h"
 class dxfprofile;
+#include "spacemath/HTmatrix.h"
+using namespace spacemath;
 
 class DXFDOM_PUBLIC dxfsection : public dxfobject {
 public:
@@ -13,7 +15,7 @@ public:
 
    virtual bool to_xml(xml_node& xml_this) const;
 
-   void build_profile(dxfprofile& prof);
+   void build_profile(dxfprofile& prof, const HTmatrix& T);
 
 private:
    string m_type;

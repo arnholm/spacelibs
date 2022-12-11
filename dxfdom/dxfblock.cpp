@@ -80,6 +80,17 @@ bool dxfblock::to_xml(xml_node& xml_this) const
    return retval;
 }
 
-void dxfblock::push_profile(dxfprofile& prof) const
+void dxfblock::push_profile(dxfprofile& prof, const HTmatrix& T) const
 {
+   // include transformation down to this level
+   HTmatrix Tblock = this->get_matrix();
+
+   HTmatrix Tthis = T*Tblock;
+
+   // traverse child entities of this block
+   for(shared_ptr<dxfobject> object : *this) {
+      if(shared_ptr<dxfentity> entity = dynamic_pointer_cast<dxfentity>(object)) {
+         entity->push_profile(prof,Tthis);
+      }
+   }
 }

@@ -61,7 +61,7 @@ bool dxfvertex::to_xml(xml_node& xml_this) const
    return retval;
 }
 
-void dxfvertex::push_profile(dxfprofile& prof) const
+void dxfvertex::push_profile(dxfprofile& prof, const HTmatrix& T) const
 {
    // prof.push_back(m_p);
 }

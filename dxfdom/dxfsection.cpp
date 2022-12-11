@@ -78,7 +78,7 @@ bool dxfsection::to_xml(xml_node& xml_this) const
 }
 
 
-void dxfsection::build_profile(dxfprofile& prof)
+void dxfsection::build_profile(dxfprofile& prof, const HTmatrix& T)
 {
    const dxfxmloptions& opts = options();
 
@@ -86,7 +86,7 @@ void dxfsection::build_profile(dxfprofile& prof)
       shared_ptr<dxfentity> entity = dynamic_pointer_cast<dxfentity>(object);
       if(entity.get()) {
          if(opts.layer_selected(entity->layer())) {
-            entity->push_profile(prof);
+            entity->push_profile(prof,T);
          }
       }
    }

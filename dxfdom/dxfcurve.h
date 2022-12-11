@@ -3,6 +3,9 @@
 
 #include "dxfposmap.h"
 #include <list>
+#include "spacemath/HTmatrix.h"
+using namespace spacemath;
+
 
 // dxfcurve is an explicit or computed "curve" from a dxf entity
 // it is not necessarily a smooth curve, it can alo be a polyline with corners or "bulges"
@@ -13,7 +16,7 @@
 class DXFDOM_PUBLIC dxfcurve {
 public:
 
-   dxfcurve(dxfposmap<size_t>& pm, const std::list<dxfpos>& points);
+   dxfcurve(dxfposmap<size_t>& pm, const std::list<dxfpos>& points, const HTmatrix& T);
    dxfcurve(size_t n1, size_t n2);
    virtual ~dxfcurve();
    void set_id(size_t id) { m_id = id; }
@@ -28,6 +31,8 @@ public:
 
    // internal points, not including the end nodes
    std::list<dxfpos> internal_points() const { return m_p; }
+
+   static std::list<dxfpos> transform_points(const HTmatrix& T, const std::list<dxfpos>& lp);
 
 private:
    size_t             m_id;  // curve sequence number

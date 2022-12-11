@@ -64,7 +64,7 @@ bool dxfcircle::to_xml(xml_node& xml_this) const
    return retval;
 }
 
-void dxfcircle::push_profile(dxfprofile& prof) const
+void dxfcircle::push_profile(dxfprofile& prof, const HTmatrix& T) const
 {
    if(m_r>0.0) {
       double sectol = prof.sectol();
@@ -87,6 +87,6 @@ void dxfcircle::push_profile(dxfprofile& prof) const
          points.push_back(dxfpos(x,y,0));
       }
 
-      prof.push_back(std::make_shared<dxfcurve>(prof.pm(),points));
+      prof.push_back(std::make_shared<dxfcurve>(prof.pm(),points,T));
    }
 }

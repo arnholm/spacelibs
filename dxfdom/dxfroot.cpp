@@ -74,7 +74,8 @@ void dxfroot::build_profile()
       if(object->tag() == "SECTION_ENTITIES") {
          shared_ptr<dxfsection> entities = dynamic_pointer_cast<dxfsection>(object);
          if(entities.get()){
-            entities->build_profile(*m_profile);
+            HTmatrix T;
+            entities->build_profile(*m_profile,T);
          }
       }
    }

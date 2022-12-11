@@ -67,7 +67,7 @@ bool dxfpolyline::to_xml(xml_node& xml_this) const
    return retval;
 }
 
-void dxfpolyline::push_profile(dxfprofile& prof) const
+void dxfpolyline::push_profile(dxfprofile& prof, const HTmatrix& T) const
 {
    if(m_v.size() > 0) {
 
@@ -100,7 +100,7 @@ void dxfpolyline::push_profile(dxfprofile& prof) const
          if(closed && (dist>prof.epspnt()) ) {
             points.push_back(p1);
          }
-         prof.push_back(std::make_shared<dxfcurve>(prof.pm(),points));
+         prof.push_back(std::make_shared<dxfcurve>(prof.pm(),points,T));
       }
    }
 }

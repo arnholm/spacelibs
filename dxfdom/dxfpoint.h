@@ -16,7 +16,7 @@ public:
 
    virtual bool to_xml(xml_node& xml_this) const;
 
-   virtual void push_profile(dxfprofile& prof) const;
+   virtual void push_profile(dxfprofile& prof, const HTmatrix& T) const;
 
 private:
    dxfpos m_p;     // point position

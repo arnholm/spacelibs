@@ -8,7 +8,7 @@ public:
    dxfentitycontainer(shared_ptr<dxfitem> item, const dxfxmloptions& opt, const string& end_tag);
    virtual ~dxfentitycontainer();
 
-   virtual void push_profile(dxfprofile& prof) const {}
+   virtual void push_profile(dxfprofile& prof, const HTmatrix& T) const {}
 
 private:
    string m_end_tag;

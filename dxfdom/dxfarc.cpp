@@ -76,7 +76,7 @@ pair<double,double> dxfarc::wcs_angles() const
    else                 return std::make_pair(180.0-m_ang2,180.0-m_ang1);
 }
 
-void dxfarc::push_profile(dxfprofile& prof) const
+void dxfarc::push_profile(dxfprofile& prof, const HTmatrix& T) const
 {
 
    double sectol = prof.sectol();
@@ -139,7 +139,7 @@ void dxfarc::push_profile(dxfprofile& prof) const
       }
 
       if(points.size() > 0) {
-         prof.push_back(std::make_shared<dxfcurve>(prof.pm(),points));
+         prof.push_back(std::make_shared<dxfcurve>(prof.pm(),points,T));
       }
 
    }

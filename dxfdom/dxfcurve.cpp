@@ -1,8 +1,7 @@
 #include "dxfcurve.h"
 
-
-dxfcurve::dxfcurve(dxfposmap<size_t>& pm, const std::list<dxfpos>& points)
-: m_p(points)
+dxfcurve::dxfcurve(dxfposmap<size_t>& pm, const std::list<dxfpos>& points, const HTmatrix& T)
+: m_p(transform_points(T,points))
 , m_id(0)
 {
    auto i1 = pm.find(m_p.front());
@@ -26,3 +25,15 @@ dxfcurve::dxfcurve(size_t n1, size_t n2)
 dxfcurve::~dxfcurve()
 {}
 
+std::list<dxfpos> dxfcurve::transform_points(const HTmatrix& T, const std::list<dxfpos>& lp)
+{
+   std::list<dxfpos> lp_trans;
+
+   for(const dxfpos& p : lp) {
+      const vmath::mat4<double>& t = T.detail();
+      vmath::vec3<double> r = vmath::transform_point(t,vmath::vec3<double>(p.x(),p.y(),p.z() ) );
+      lp_trans.push_back(dxfpos(r[0],r[1],r[2]));
+   }
+
+   return lp_trans;
+}

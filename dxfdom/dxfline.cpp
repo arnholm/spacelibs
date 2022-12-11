@@ -57,11 +57,11 @@ bool dxfline::to_xml(xml_node& xml_this) const
    return retval;
 }
 
-void dxfline::push_profile(dxfprofile& prof) const
+void dxfline::push_profile(dxfprofile& prof, const HTmatrix& T) const
 {
    // skip zero length lines
    if(m_p1.dist(m_p2) > 0.0) {
       std::list<dxfpos> points = { m_p1, m_p2 };
-      prof.push_back(std::make_shared<dxfcurve>(prof.pm(),points));
+      prof.push_back(std::make_shared<dxfcurve>(prof.pm(),points,T));
    }
 }

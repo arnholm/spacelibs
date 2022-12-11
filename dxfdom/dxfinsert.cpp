@@ -53,12 +53,14 @@ dxfinsert::dxfinsert(shared_ptr<dxfitem> item, const dxfxmloptions& opt)
          default: {}
       };
 
+
       child = dxfitem::next_item();
    }
    dxfitem::push_front(child);
+
 /*
-   cout << "dxfinsert" << ' ' << item->gc() << " '" << item->value() << "' "
-        << " pc=(" << m_pos.x() << ',' <<  m_pos.y() << ',' <<  m_pos.z() << ')' << endl;
+   cout << "dxfinsert" << ' ' << m_name << " '" << item->value() << "' "
+        << " pc=(" << m_pos.x() << ',' <<  m_pos.y() << ',' <<  m_pos.z() << ')' << ' '<< m_ang<< endl;
 */
 }
 
@@ -117,40 +119,16 @@ HTmatrix dxfinsert::get_matrix() const
    return pm*rm*sm;
 }
 
-dxfpos transform_pos(const HTmatrix& T, const dxfpos& p)
-{
-   const vmath::mat4<double>& t = T.detail();
-   vmath::vec3<double> r=transform_point(t,vmath::vec3<double>(p.x(),p.y(),p.z() ) );
-   return dxfpos(r[0],r[1],r[2]);
-}
 
-void dxfinsert::push_profile(dxfprofile& prof) const
+
+void dxfinsert::push_profile(dxfprofile& prof, const HTmatrix& T) const
 {
    std::shared_ptr<dxfblock> block = prof.get_block(m_name);
    if(block.get()) {
 
-      // block transformation matrix
-      HTmatrix T = get_matrix();
-
-      for(auto& object : *block) {
-
-         shared_ptr<dxfline> line = dynamic_pointer_cast<dxfline>(object);
-         if(line.get()) {
-
-            dxfpos p1 = line->p1();
-            dxfpos p2 = line->p2();
-
-            p1 = transform_pos(T,p1);
-            p2 = transform_pos(T,p2);
-
-            std::list<dxfpos> points = { p1,p2};
-            prof.push_back(std::make_shared<dxfcurve>(prof.pm(),points));
-         }
-         else {
-            cout << "Warning, BLOCK item not implemented (only LINE supported): " << object->tag() << endl;
-         }
-      }
-
+      // include transformation down to this level
+      HTmatrix Tinsert = this->get_matrix();
+      block->push_profile(prof,T*Tinsert);
    }
    else {
        throw std::logic_error("dxfinsert::push_profile: BLOCK not found: " + m_name);

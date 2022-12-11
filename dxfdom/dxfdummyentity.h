@@ -8,7 +8,7 @@ public:
    dxfdummyentity(shared_ptr<dxfitem> item, const dxfxmloptions& opt);
    virtual ~dxfdummyentity();
 
-   virtual void push_profile(dxfprofile& prof) const {}
+   virtual void push_profile(dxfprofile& prof, const HTmatrix& T) const {}
 
    virtual bool to_xml(xml_node& xml_this) const;
 

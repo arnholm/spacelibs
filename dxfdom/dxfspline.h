@@ -19,7 +19,7 @@ public:
    virtual string tag() const { return "SPLINE"; }
 
    virtual bool to_xml(xml_node& xml_this) const;
-   virtual void push_profile(dxfprofile& prof) const;
+   virtual void push_profile(dxfprofile& prof, const HTmatrix& T) const;
 
 protected:
    list<dxfpos> compute_curve() const;

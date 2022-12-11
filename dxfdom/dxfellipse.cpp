@@ -79,7 +79,7 @@ bool dxfellipse::to_xml(xml_node& xml_this) const
    return retval;
 }
 
-void dxfellipse::push_profile(dxfprofile& prof) const
+void dxfellipse::push_profile(dxfprofile& prof, const HTmatrix& T) const
 {
    // https://www.autodesk.com/techpubs/autocad/acad2000/dxf/ellipse_command39s_parameter_option_dxf_06.htm
 
@@ -149,7 +149,7 @@ void dxfellipse::push_profile(dxfprofile& prof) const
       }
 
       if(points.size() > 0) {
-         prof.push_back(std::make_shared<dxfcurve>(prof.pm(),points));
+         prof.push_back(std::make_shared<dxfcurve>(prof.pm(),points,T));
       }
    }
 }

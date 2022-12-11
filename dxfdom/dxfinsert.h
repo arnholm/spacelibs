@@ -4,8 +4,7 @@
 #include "dxfentity.h"
 #include "dxfpos.h"
 
-#include "spacemath/HTmatrix.h"
-using namespace spacemath;
+
 
 class DXFDOM_PUBLIC dxfinsert : public dxfentity {
 public:
@@ -16,7 +15,7 @@ public:
 
    virtual bool to_xml(xml_node& xml_this) const;
 
-   virtual void push_profile(dxfprofile& prof) const;
+   virtual void push_profile(dxfprofile& prof, const HTmatrix& T) const;
 
    HTmatrix get_matrix() const;
 
